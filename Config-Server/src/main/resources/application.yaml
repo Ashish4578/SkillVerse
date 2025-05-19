@@ -2,8 +2,13 @@
 spring:
   application:
     name: Config-Server
+  port: 8085
 
+# spring cloud Configuration 
   cloud:
     config:
-      uri:
-      - 
+      server:
+        git:
+          uri: 
+        clone-on-start: true
+        search-paths: ConfigProfiles

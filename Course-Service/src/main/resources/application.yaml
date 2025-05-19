@@ -1,11 +1,11 @@
 # Server port
 server:
-  port: 8081
+  port: 8084
 
 # Spring applicaton configuration
 spring:
   application:
-    name: User-Service
+    name: Course-Service
 
 # Database configuration
   datasource:
@@ -74,4 +74,5 @@ management:
 #    base-url: http://RATING-SERVICE
 
 # Temporary Spring
+
 

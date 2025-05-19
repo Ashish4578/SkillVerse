@@ -1,0 +1,37 @@
+# Server Port
+server:
+   port: 8086
+
+spring:
+  # Spring Gateway Configuration
+  application:
+    name: ApiGateway
+
+  security:
+    user:
+      name: a
+      password: aa
+
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://User-Service
+          predicates:
+            - Path=/users/**
+        - id: course-service
+          uri: lb://Course-Service
+          predicates:
+            - Path=/courses/**
+        - id: rating-service
+          uri: lb://Rating-Service
+          predicates:
+            - Path=/ratings/**
+        - id: enrollment-service
+          uri: lb://Enrollment-Service
+          predicates:
+            - Path=/enrollments/**
+  congig:
+    import: configserver:http://localhost:8085
+
+      
