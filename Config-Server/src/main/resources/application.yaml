@@ -3,3 +3,7 @@ spring:
   application:
     name: Config-Server
 
+  cloud:
+    config:
+      uri:
+      - 
