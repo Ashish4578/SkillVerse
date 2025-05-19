@@ -1,0 +1,5 @@
+# spring Configuration
+spring:
+  application:
+    name: Config-Server
+
