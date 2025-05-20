@@ -1,4 +1,4 @@
-package com.user_service;
+package com.skillverse.userservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
