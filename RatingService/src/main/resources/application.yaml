@@ -25,7 +25,7 @@ spring:
   config:
     import: optional:configserver:http://localhost:8085
 
-# Cloud discovery Client configuration
+# Cloud discovery Client configuration & Spring Security OAuth2 Resource Server Configuration
   cloud:
     discovery:
       enabled: true
@@ -33,6 +33,10 @@ spring:
     user:
       name: a
       password: aa
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8087
 
 #  jackson:
 #    serialization:
@@ -63,7 +67,8 @@ management:
         include: "*"
 
 
-# jwt Configuration
+
+
 
 
 # WebClient Configuration

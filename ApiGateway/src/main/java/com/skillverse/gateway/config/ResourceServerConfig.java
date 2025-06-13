@@ -1,7 +1,8 @@
 package com.skillverse.gateway.config;
 
-//@Configuration
-//@EnableWebSecurity
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class ResourceServerConfig {
 
 //    private final JwtEncoder jwtEncoder;

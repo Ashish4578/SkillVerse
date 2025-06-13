@@ -29,10 +29,7 @@ spring:
     user:
       name: a
       password: aa
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:8087/oauth2/jwks
+
 
 
 eureka:
