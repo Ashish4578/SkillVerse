@@ -29,14 +29,14 @@ spring:
   cloud:
     discovery:
       enabled: true
-  security:
-    user:
-      name: a
-      password: aa
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8087
+#  security:
+#    user:
+#      name: a
+#      password: aa
+#   oauth2:
+#     resourceserver:
+#       jwt:
+#         issuer-uri: http://localhost:8087
 
 #  jackson:
 #    serialization:
