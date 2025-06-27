@@ -1,12 +1,18 @@
 package com.skillverse.userservice.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.skillverse.userservice.dto.AppUserResponseDTO;
 import com.skillverse.userservice.entity.AppUser;
-import com.skillverse.userservice.entity.UserResponse;
+import com.skillverse.userservice.entity.Role;
+import com.skillverse.userservice.mapper.UserServiceMapper;
 import com.skillverse.userservice.repository.SkillVerseUserRepository;
 
 @Service
@@ -21,20 +27,18 @@ public class SkillVerseUserServiceImpl implements SkillVerseUserService {
 	}
 
 	@Override
-	public UserResponse findUserByItsId(Long id) {
+	public AppUserResponseDTO findUserByItsId(Long id) {
 		AppUser appUser = skillVerseUserRepository.findById(id).get();
-		UserResponse userResponse = new UserResponse();
-		userResponse.setUsername(appUser.getUsername());
-		userResponse.setRoles(appUser.getRoles());
-		return userResponse;
+		return UserServiceMapper.getConvertAppUserToResponse(appUser);
 	}
 
 	@Override
-	public UserResponse findProfileByUserName(String username) {
+	public AppUserResponseDTO findProfileByUserName(String username) {
 		List<AppUser> userResponseWhole = skillVerseUserRepository.findAll();
 		AppUser appUser = userResponseWhole.stream().filter(appuser -> appuser.getUsername().contentEquals(username))
 				.findAny().orElse(null);
-		UserResponse userResponse = new UserResponse(appUser.getUsername(), appUser.getRoles());
+		AppUserResponseDTO userResponse = new AppUserResponseDTO(appUser.getUsername(), appUser.getEmail(),
+				appUser.getContactNumber(), appUser.isEnabled(), appUser.getRoles());
 		return userResponse;
 	}
 
@@ -52,26 +56,47 @@ public class SkillVerseUserServiceImpl implements SkillVerseUserService {
 	}
 
 	@Override
-	public void deleteProfile(AppUser deleteUser) {
-		skillVerseUserRepository.deleteById(deleteUser.getAppUserId());
+	public void deleteProfile(Long userId) {
+		skillVerseUserRepository.deleteById(userId);
 	}
 
 	@Override
-	public Long findProfileIdByUserName(AppUser appUser) {
-		List<AppUser> userResponseWhole = skillVerseUserRepository.findAll();
-		AppUser existingUser = userResponseWhole.stream()
-				.filter(appuser -> appuser.getUsername().contentEquals(appUser.getUsername())).findAny().orElse(null);
-		return existingUser.getAppUserId();
+	public Optional<Long> findProfileIdByUserName(AppUser appUser) {
+		return skillVerseUserRepository.findAppUserIdByUsername(appUser.getUsername());
 	}
 
-//	List<GrantedAuthority> authorities = new ArrayList<>();
-//
-//	for (AppRole role : user.getRoles()) {
-//	    authorities.add(new SimpleGrantedAuthority(role.getName().name())); // e.g. ROLE_ADMIN
-//
-//	    role.getName().getPermissions().forEach(permission ->
-//	        authorities.add(new SimpleGrantedAuthority(permission.name())) // e.g. DELETE_COURSE
-//	    );
-//	}
+	@Override
+	public AppUserResponseDTO authenticate(String username, String password, Role role) {
+
+		return null;
+	}
+
+	@Override
+	public Page<AppUserResponseDTO> getUsers(Pageable pageable) {
+
+		return null;
+	}
+
+	@Override
+	public void assignRoleToUser(Long userId, Role role) {
+
+	}
+
+	@Override
+	public void removeRoleFromUser(Long userId, Role role) {
+
+	}
+
+	@Override
+	public boolean existsByUsername(String username) {
+
+		return false;
+	}
+
+	@Override
+	public List<AppUserResponseDTO> getAllUsersByRole(Role role) {
+		List<AppUser> users = skillVerseUserRepository.findAllByRole(role);
+		return users.stream().map(UserServiceMapper::getConvertAppUserToResponse).collect(Collectors.toList());
+	}
 
 }

@@ -1,5 +1,7 @@
 package com.skillverse.userservice.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skillverse.userservice.dto.AppUserResponseDTO;
 import com.skillverse.userservice.entity.AppUser;
-import com.skillverse.userservice.entity.UserResponse;
+import com.skillverse.userservice.entity.Role;
 import com.skillverse.userservice.service.SkillVerseUserService;
 
 @RestController
@@ -29,9 +32,9 @@ public class UserServiceController {
 
 	// Get Profile by UserName
 	@GetMapping("/{username}")
-	public ResponseEntity<UserResponse> getUser(@PathVariable("username") String userName) {
-		UserResponse userResponse = skillVerseUserService.findProfileByUserName(userName);
-		return new ResponseEntity<>(userResponse, HttpStatus.OK);
+	public ResponseEntity<AppUserResponseDTO> getUser(@PathVariable("username") String userName) {
+		AppUserResponseDTO appUserResponse = skillVerseUserService.findProfileByUserName(userName);
+		return new ResponseEntity<>(appUserResponse, HttpStatus.OK);
 	}
 
 	// Register Profile
@@ -50,10 +53,17 @@ public class UserServiceController {
 	}
 
 	// Delete Profile
-	@DeleteMapping
-	public ResponseEntity<String> deleteProfile(@RequestBody AppUser deleteUser) {
-		skillVerseUserService.deleteProfile(deleteUser);
-		return new ResponseEntity<>("Profile Deleted Successfully",HttpStatus.ACCEPTED);
+	@DeleteMapping("/{userId}")
+	public ResponseEntity<String> deleteProfile(@PathVariable Long userId) {
+		skillVerseUserService.deleteProfile(userId);
+		return new ResponseEntity<>("Profile Deleted Successfully", HttpStatus.OK);
 	}
+
+	@GetMapping("/getAll/{roleName}")
+	public ResponseEntity<List<AppUserResponseDTO>> getUsersByRole(@PathVariable String roleName) {
+	    Role role = Role.valueOf(roleName.toUpperCase());
+	    return ResponseEntity.ok(skillVerseUserService.getAllUsersByRole(role));
+	}
+
 
 }
