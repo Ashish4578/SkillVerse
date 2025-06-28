@@ -5,6 +5,5 @@ public enum Permission {
     CREATE_COURSE,
     DELETE_COURSE,
     DELETE_USER,
-    ENROLL_GROUP,
     DELETE_ADMIN
 }

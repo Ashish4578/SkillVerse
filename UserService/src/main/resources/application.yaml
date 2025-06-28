@@ -80,3 +80,8 @@ management:
 # Temporary Spring
 
 
+# Documentation Configguration
+springdoc:
+  swagger-ui:
+    path : /ui-index.html
+    operationsSorter : method

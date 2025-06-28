@@ -9,10 +9,6 @@ public enum Role {
 	ROLE_CREATOR(Set.of(
 			Permission.READ_COURSE,
 			Permission.CREATE_COURSE)),
-	ROLE_GROUP(Set.of(
-			Permission.READ_COURSE,
-			Permission.ENROLL_GROUP
-			)),
 	ROLE_ADMIN(
 			Set.of(
 			Permission.READ_COURSE,
