@@ -25,40 +25,6 @@ spring:
   config:
     import: optional:configserver:http://localhost:8085
 
-# Cloud discovery Client configuration & Spring Security OAuth2 Resource Server Configuration
-  cloud:
-    discovery:
-      enabled: true
-#  security:
-#    user:
-#      name: a
-#      password: aa
-#   oauth2:
-#     resourceserver:
-#       jwt:
-#         issuer-uri: http://localhost:8087
-
-#  jackson:
-#    serialization:
-#			fail-on-empty-beans: false
-
-# Eureka Client Configuration
-eureka:
-  client:
-    service-url:
-      defaultZone : http://localhost:8761/eureka
-    register-with-eureka: true
-    fetch-registry: true
-  instance:
-    prefer-ip-address: true
-
-# Logging configuration
-logging:
-  level:
-    root: INFO
-    org.springframework.web: DEBUG
-    org.hibernate.SQL: DEBUG
-
 # Actuator Configuration
 management:
   endpoints:
@@ -67,21 +33,3 @@ management:
         include: "*"
 
 
-# jwt Configuration
-
-
-# WebClient Configuration
-#webclient:
-#  hotel-service:
-#    base-url: http://HOTEL-SERVICE
-#  rating-service:
-#    base-url: http://RATING-SERVICE
-
-# Temporary Spring
-
-
-# Documentation Configguration
-springdoc:
-  swagger-ui:
-    path : /ui-index.html
-    operationsSorter : method

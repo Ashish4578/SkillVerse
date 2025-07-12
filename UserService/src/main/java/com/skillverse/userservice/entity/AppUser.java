@@ -38,12 +38,6 @@ public class AppUser {
 	@Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
 	private String username;
 
-	@NotBlank(message = "Password cannot be empty")
-	@Size(min = 8, message = "Password must be at least 8 characters long")
-	// Consider adding more complex password validation (e.g., regex for special
-	// chars, numbers)
-	private String password;
-
 	@NotBlank(message = "Email cannot be empty")
 	@Email(message = "Invalid email format")
 	@Size(max = 100, message = "Email cannot exceed 100 characters")
@@ -65,13 +59,11 @@ public class AppUser {
 
 	public AppUser(
 			@NotBlank(message = "Username cannot be empty") @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters") String username,
-			@NotBlank(message = "Password cannot be empty") @Size(min = 8, message = "Password must be at least 8 characters long") String password,
 			@NotBlank(message = "Email cannot be empty") @Email(message = "Invalid email format") @Size(max = 100, message = "Email cannot exceed 100 characters") String email,
 			@NotBlank(message = "Contact number cannot be empty") @Pattern(regexp = "\\d{10}", message = "Contact number must be 10 digits") String contactNumber,
 			boolean enabled, @NotNull @Size(min = 1, message = "User must have at least one role") Set<Role> roles) {
 		super();
 		this.username = username;
-		this.password = password;
 		this.email = email;
 		this.contactNumber = contactNumber;
 		this.enabled = enabled;

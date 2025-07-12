@@ -12,7 +12,7 @@ public class UserServiceMapper {
 	}
 
 	public static AppUser getConvertAppUserRequestDTOToAppUser(AppUserRequestDTO appUserRequestDTO) {
-		return new AppUser(appUserRequestDTO.getUsername(), appUserRequestDTO.getPassword(),
+		return new AppUser(appUserRequestDTO.getUsername(), 
 				appUserRequestDTO.getEmail(), appUserRequestDTO.getContactNumber(), appUserRequestDTO.isEnabled(),
 				appUserRequestDTO.getRoles());
 	}

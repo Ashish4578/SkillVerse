@@ -48,7 +48,6 @@ public class UserProfielServiceImpl implements UserProfileService {
 		existingUser.setContactNumber(dto.getContactNumber());
 		existingUser.setEmail(dto.getEmail());
 		existingUser.setEnabled(dto.isEnabled());
-		existingUser.setPassword(dto.getPassword());
 		existingUser.setRoles(dto.getRoles());
 
 		// Save and return response

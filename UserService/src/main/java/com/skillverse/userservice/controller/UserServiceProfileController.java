@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillverse.userservice.service.UserProfileService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("skillverse/users")
 @Validated // Crucial for validating @PathVariable and @RequestParam
 public class UserServiceProfileController {
 

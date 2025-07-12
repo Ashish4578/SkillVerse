@@ -12,7 +12,7 @@ public class GeneralServiceImpl implements GeneralService {
 
 	@Override
 	public Optional<Long> findByProfileIdByUserName(String username) {
-		// TODO Auto-generated method stub
+		
 		return Optional.empty();
 	}
 
