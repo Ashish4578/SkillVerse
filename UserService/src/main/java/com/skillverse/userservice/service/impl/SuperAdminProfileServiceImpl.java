@@ -32,7 +32,12 @@ public class SuperAdminProfileServiceImpl implements SuperAdminProfileService{
 		return null;
 	}
 
-	@Override
+    @Override
+    public void createAdminProfile(AppUserRequestDTO dto) {
+
+    }
+
+    @Override
 	public List<AppUserResponseDTO> getAllUsers() {
 		// TODO Auto-generated method stub
 		return null;

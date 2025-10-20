@@ -3,8 +3,6 @@ package com.skillverse.userservice.service.impl;
 import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserRequestDTOToAppUser;
 import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserToResponse;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +11,12 @@ import com.skillverse.userservice.dto.AppUserResponseDTO;
 import com.skillverse.userservice.entity.AppUser;
 import com.skillverse.userservice.repository.SkillVerseUserRepository;
 import com.skillverse.userservice.service.GeneralService;
-import com.skillverse.userservice.service.UserProfileService;
+import com.skillverse.userservice.service.StudentProfileService;
 
 import jakarta.persistence.EntityNotFoundException;;
 
 @Service
-public class UserProfielServiceImpl implements UserProfileService {
+public class StudentProfielServiceImpl implements StudentProfileService {
 
 	@Autowired
 	private GeneralService generalService;

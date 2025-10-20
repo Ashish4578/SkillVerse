@@ -3,8 +3,11 @@ package com.skillverse.userservice.service;
 import java.util.Optional;
 
 import com.skillverse.userservice.dto.AppUserResponseDTO;
+import com.skillverse.userservice.entity.Course;
 
 public interface GeneralService {
+
+    Optional<Course[]> getCourseList();
 	// Find Profile Id by User Name
 	Optional<Long> findByProfileIdByUserName(String username);
 

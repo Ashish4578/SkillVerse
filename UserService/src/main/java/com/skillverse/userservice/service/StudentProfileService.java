@@ -2,9 +2,8 @@ package com.skillverse.userservice.service;
 
 import com.skillverse.userservice.dto.AppUserRequestDTO;
 import com.skillverse.userservice.dto.AppUserResponseDTO;
-import com.skillverse.userservice.entity.Role;
 
-public interface UserProfileService {
+public interface StudentProfileService {
 
 	// Create User(own) profile
 	AppUserResponseDTO createProfile(AppUserRequestDTO dto);

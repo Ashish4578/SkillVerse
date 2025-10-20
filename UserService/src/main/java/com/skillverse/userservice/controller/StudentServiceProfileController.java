@@ -1,25 +1,30 @@
 package com.skillverse.userservice.controller;
 
+import com.skillverse.userservice.entity.AppUser;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.skillverse.userservice.service.UserProfileService;
+import com.skillverse.userservice.service.StudentProfileService;
 
 @RestController
 @RequestMapping("skillverse/users")
 @Validated // Crucial for validating @PathVariable and @RequestParam
-public class UserServiceProfileController {
+public class StudentServiceProfileController {
 
 	@Autowired
-	private UserProfileService userProfileService;
+	private StudentProfileService userProfileService;
 
 	@GetMapping
 	public String getWelcomeMsg() {
 		return "Welcome user Profile Service";
 	}
+
+    @PostMapping("/login")
+    public String getUserLogin(@Valid @RequestBody AppUser user) {
+        return "login successfully for user";
+    }
 	/*
 	 * 
 	 * 

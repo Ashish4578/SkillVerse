@@ -3,7 +3,7 @@ package com.skillverse.userservice.entity;
 import java.util.Set;
 
 public enum Role {
-	ROLE_USER(Set.of(
+	ROLE_STUDENT(Set.of(
 			Permission.READ_COURSE
 			)),
 	ROLE_CREATOR(Set.of(
