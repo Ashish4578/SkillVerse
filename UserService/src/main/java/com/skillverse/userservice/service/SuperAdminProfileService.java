@@ -15,7 +15,7 @@ public interface SuperAdminProfileService {
 	String deleteAnyProfile(Long id);
 
     //Create admin profile
-    void createAdminProfile(AppUserRequestDTO dto);
+    AppUserResponseDTO createAdminProfile(AppUserRequestDTO appUserRequestDTO);
 
 	// Get list of all Users
 	List<AppUserResponseDTO> getAllUsers();

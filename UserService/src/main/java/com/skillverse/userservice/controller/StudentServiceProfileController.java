@@ -1,113 +1,35 @@
 package com.skillverse.userservice.controller;
 
+import com.skillverse.userservice.dto.AppUserResponseDTO;
 import com.skillverse.userservice.entity.AppUser;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.skillverse.userservice.service.StudentProfileService;
 
 @RestController
-@RequestMapping("skillverse/users")
+@RequestMapping("skillverse/student")
 @Validated // Crucial for validating @PathVariable and @RequestParam
 public class StudentServiceProfileController {
 
+    private static final Logger log = LoggerFactory.getLogger(StudentServiceProfileController.class);
 	@Autowired
-	private StudentProfileService userProfileService;
+	private StudentProfileService studentProfileService;
 
 	@GetMapping
 	public String getWelcomeMsg() {
 		return "Welcome user Profile Service";
 	}
 
-    @PostMapping("/login")
-    public String getUserLogin(@Valid @RequestBody AppUser user) {
-        return "login successfully for user";
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<AppUserResponseDTO> getStudentProfile(@PathVariable @Valid Long id) {
+        log.info("Getting Student Profile with id {}", id);
+        AppUserResponseDTO responseDTO = studentProfileService.getStudentProfileById(id);
+        return ResponseEntity.ok(responseDTO);
     }
-	/*
-	 * 
-	 * 
-	 * @GetMapping public String msg() { return "Hello World from User Service"; }
-	 * 
-	 * // Find profile
-	 * 
-	 * @GetMapping("/{username}") public ResponseEntity<AppUserResponseDTO> getUser(
-	 * 
-	 * @PathVariable("username") @NotBlank(message = "Username cannot be empty")
-	 * String userName) {
-	 * 
-	 * AppUserResponseDTO appUserResponse =
-	 * skillVerseUserService.findProfileByUserName(userName);
-	 * 
-	 * // if Profile not found if (appUserResponse == null) { return new
-	 * ResponseEntity<>(HttpStatus.NOT_FOUND); } return new
-	 * ResponseEntity<>(appUserResponse, HttpStatus.OK); }
-	 * 
-	 * // Register Profile
-	 * 
-	 * @PostMapping public ResponseEntity<?> registerProfile(@Valid @RequestBody
-	 * AppUserRequestDTO appUserRequestDTO, BindingResult bindingResult) {
-	 * 
-	 * // Check for validation errors from @Valid if (bindingResult.hasErrors()) {
-	 * Map<String, String> errors = new HashMap<>(); for (FieldError error :
-	 * bindingResult.getFieldErrors()) { errors.put(error.getField(),
-	 * error.getDefaultMessage()); } return new ResponseEntity<>(errors,
-	 * HttpStatus.BAD_REQUEST); }
-	 * 
-	 * AppUserResponseDTO createdAppUser =
-	 * skillVerseUserService.createProfile(convertDtoToAppUser(appUserRequestDTO));
-	 * return new ResponseEntity<>(createdAppUser, HttpStatus.CREATED); }
-	 * 
-	 * // Update Profile
-	 * 
-	 * @PutMapping public ResponseEntity<?> updateProfile(@Valid @RequestBody
-	 * AppUserRequestDTO appUserRequestDTO, BindingResult bindingResult) {
-	 * 
-	 * // Check for validation errors from @Valid if (bindingResult.hasErrors()) {
-	 * Map<String, String> errors = new HashMap<>(); for (FieldError error :
-	 * bindingResult.getFieldErrors()) { errors.put(error.getField(),
-	 * error.getDefaultMessage()); } return new ResponseEntity<>(errors,
-	 * HttpStatus.BAD_REQUEST); }
-	 * 
-	 * AppUserResponseDTO updatedAppUser =
-	 * skillVerseUserService.updateProfileData(appUserRequestDTO); return new
-	 * ResponseEntity<>(updatedAppUser, HttpStatus.ACCEPTED); }
-	 * 
-	 * // Delete Profile
-	 * 
-	 * @DeleteMapping("/{userId}") public ResponseEntity<String> deleteProfile(
-	 * 
-	 * @PathVariable @Positive(message = "User ID must be a positive number") Long
-	 * userId) {
-	 * 
-	 * // You might want to check if the profile exists before trying to delete //
-	 * if (!skillVerseUserService.profileExists(userId)) { // return new
-	 * ResponseEntity<>("Profile not found", HttpStatus.NOT_FOUND); // }
-	 * 
-	 * skillVerseUserService.deleteProfile(userId); return new
-	 * ResponseEntity<>("Profile Deleted Successfully", HttpStatus.OK); }
-	 * 
-	 * @GetMapping("/getAll/{roleName}") public
-	 * ResponseEntity<List<AppUserResponseDTO>> getUsersByRole(
-	 * 
-	 * @PathVariable @NotBlank(message = "Role name cannot be empty") String
-	 * roleName) {
-	 * 
-	 * try { Role role = Role.valueOf(roleName.toUpperCase()); return
-	 * ResponseEntity.ok(skillVerseUserService.getAllUsersByRole(role)); } catch
-	 * (IllegalArgumentException e) { // Handle invalid role name return new
-	 * ResponseEntity<>(HttpStatus.BAD_REQUEST); // Or a custom error DTO } }
-	 * 
-	 * // --- Helper method for DTO to Entity conversion (example) --- // In a
-	 * larger application, this would typically be in a dedicated mapper class //
-	 * (e.g., using MapStruct) private AppUser convertDtoToAppUser(AppUserRequestDTO
-	 * dto) { AppUser appUser = new AppUser(); // Assuming appUserId is generated by
-	 * DB or handled separately for update appUser.setUsername(dto.getUsername());
-	 * appUser.setPassword(dto.getPassword()); // Remember to hash passwords!
-	 * appUser.setEmail(dto.getEmail());
-	 * appUser.setContactNumber(dto.getContactNumber());
-	 * appUser.setEnabled(dto.isEnabled()); appUser.setRoles(dto.getRoles()); return
-	 * appUser; }
-	 */
 }

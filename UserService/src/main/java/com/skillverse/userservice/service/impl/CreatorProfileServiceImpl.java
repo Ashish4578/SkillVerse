@@ -2,6 +2,7 @@ package com.skillverse.userservice.service.impl;
 
 import java.util.List;
 
+import com.skillverse.userservice.entity.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,9 @@ import com.skillverse.userservice.dto.AppUserResponseDTO;
 import com.skillverse.userservice.repository.SkillVerseUserRepository;
 import com.skillverse.userservice.service.CreatorProfileService;
 import com.skillverse.userservice.service.GeneralService;
+
+import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserRequestDTOToAppUser;
+import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserToResponse;
 
 @Service
 public class CreatorProfileServiceImpl implements CreatorProfileService{
@@ -22,8 +26,8 @@ public class CreatorProfileServiceImpl implements CreatorProfileService{
 	
 	@Override
 	public AppUserResponseDTO createCreatorProfile(AppUserRequestDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		AppUser appUser= skillVerseUserRepository.save(getConvertAppUserRequestDTOToAppUser(dto));
+        return getConvertAppUserToResponse(appUser);
 	}
 
 	@Override

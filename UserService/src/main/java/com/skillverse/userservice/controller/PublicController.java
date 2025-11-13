@@ -63,13 +63,16 @@ public class PublicController {
                 AppUserRequestDTO studentUser = new AppUserRequestDTO(registerUser.getUsername(), registerUser.getPassword(),
                         true, registerUser.getEmail(), registerUser.getPhone(), Collections.singleton(ROLE_STUDENT));
                 studentProfileService.createProfile(studentUser);
-                log.info("Profile is created : Student");
-//                return ResponseEntity.ok("Student registered successfully");
+                log.info("Profile is created : Creator");
+                return ResponseEntity.ok("Student registered successfully");
+
             case CREATOR:
                 AppUserRequestDTO creatorUser = new AppUserRequestDTO(registerUser.getUsername(), registerUser.getPassword(),
                         true, registerUser.getEmail(), registerUser.getPhone(), Collections.singleton(ROLE_CREATOR));
                 creatorProfileService.createCreatorProfile(creatorUser);
+                log.info("Profile is created : Creator");
                 return ResponseEntity.ok("Creator registered successfully");
+
             default:
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -78,32 +81,21 @@ public class PublicController {
     }
 
 
-    @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@Valid @RequestBody LoginUser loginUser) {
-        switch (loginUser.getTypesOfUser()) {
-            case STUDENT:
-//                student page
-                return ResponseEntity.ok("Student login successfully");
-            case CREATOR:
-                // Creator page
-                return ResponseEntity.ok("Creator login successfully");
-            case ADMIN:
-                // admin page
-                return ResponseEntity.ok("Admin login successfully");
-            // super admin page
-            case SUPER_ADMIN:
-                return ResponseEntity.ok("Super Admin login successfully");
-            default:
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<String> loginUser(@Valid @RequestBody LoginUser loginUser) {
+//        switch (loginUser.getTypesOfUser()) {
+//            case STUDENT:
+//
+//                return ResponseEntity.ok("Student login successfully");
+//
+//            case CREATOR:
+//                // Creator page
+//                return ResponseEntity.ok("Creator login successfully");
+//
+//            default:
+//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//        }
+//    }
 
-    @PostMapping("/create-admin-profile")
-    ResponseEntity<String> createAdminProfile(@Valid @RequestBody RegisterUser registerUser) {
-        AppUserRequestDTO appUserRequestDTO = new AppUserRequestDTO(registerUser.getUsername(), registerUser.getPassword(),
-                true, registerUser.getEmail(), registerUser.getPhone(), Collections.singleton(ROLE_ADMIN));
-        superAdminProfileService.createAdminProfile(appUserRequestDTO);
-        return ResponseEntity.ok("Admin login successfully");
 
-    }
 }

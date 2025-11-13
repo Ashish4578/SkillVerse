@@ -14,4 +14,6 @@ public interface StudentProfileService {
 	//  Delete User(own) Profile
 	void deleteOwnProfile(Long id);
 
+    AppUserResponseDTO getStudentProfileById(Long id);
+
 }

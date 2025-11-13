@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.skillverse.userservice.entity.Role;
 
+import com.skillverse.userservice.entity.TypesOfUser;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,15 +17,13 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class AppUserRequestDTO {
-	
-	@NotBlank(message = "Username cannot be empty")
+
+    @NotBlank(message = "Username cannot be empty")
     @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
     private String username;
 
     @NotBlank(message = "Password cannot be empty")
     @Size(min = 8, message = "Password must be at least 8 characters long")
-    // @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$",
-    //          message = "Password must be 8-20 characters and include uppercase, lowercase, number, and special character.")
     private String password;
 
     private boolean enabled;
@@ -38,7 +37,7 @@ public class AppUserRequestDTO {
     @Pattern(regexp = "^\\d{10}$", message = "Contact number must be 10 digits")
     private String contactNumber;
 
-    @NotNull(message = "Roles cannot be null") 
-    @Size(min = 1, message = "User must have at least one role") 
-    private Set<Role> roles = new HashSet<>();
+    @NotNull(message = "Roles cannot be null")
+    @Size(min = 1, message = "At least one role must be selected")
+    private Set<Role> roles;
 }

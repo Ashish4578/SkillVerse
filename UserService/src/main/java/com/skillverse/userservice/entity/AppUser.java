@@ -30,44 +30,41 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AppUser {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long appUserId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long appUserId;
 
-	@NotBlank(message = "Username cannot be empty")
-	@Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
-	private String username;
+    @NotBlank(message = "Username cannot be empty")
+    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+    private String username;
 
-	@NotBlank(message = "Email cannot be empty")
-	@Email(message = "Invalid email format")
-	@Size(max = 100, message = "Email cannot exceed 100 characters")
-	private String email;
+    @NotBlank
+    @Size(min = 3, max = 10, message = "Password must be between 3 and 10 characters")
+    private String password;
 
-	@NotBlank(message = "Contact number cannot be empty")
-	@Pattern(regexp = "\\d{10}", message = "Contact number must be 10 digits")
-	private String contactNumber;
+    @NotBlank(message = "Email cannot be empty")
+    @Email(message = "Invalid email format")
+    @Size(max = 100, message = "Email cannot exceed 100 characters")
+    private String email;
 
-	private boolean enabled = true;
+    @NotBlank(message = "Contact number cannot be empty")
+    @Pattern(regexp = "\\d{10}", message = "Contact number must be 10 digits")
+    private String contactNumber;
 
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "app_user_id"))
-	@Column(name = "role_name")
-	@Enumerated(EnumType.STRING)
-	@NotNull
-	@Size(min = 1, message = "User must have at least one role")
-	private Set<Role> roles = new HashSet<>();
+    private boolean enabled = true;
 
-	public AppUser(
-			@NotBlank(message = "Username cannot be empty") @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters") String username,
-			@NotBlank(message = "Email cannot be empty") @Email(message = "Invalid email format") @Size(max = 100, message = "Email cannot exceed 100 characters") String email,
-			@NotBlank(message = "Contact number cannot be empty") @Pattern(regexp = "\\d{10}", message = "Contact number must be 10 digits") String contactNumber,
-			boolean enabled, @NotNull @Size(min = 1, message = "User must have at least one role") Set<Role> roles) {
-		super();
-		this.username = username;
-		this.email = email;
-		this.contactNumber = contactNumber;
-		this.enabled = enabled;
-		this.roles = roles;
-	}
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "app_user_id"))
+    @Column(name = "role_name")
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles = new HashSet<>();
 
+    public AppUser(String username, String password, String email, String contactNumber, boolean enabled, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.contactNumber = contactNumber;
+        this.enabled = enabled;
+        this.roles = roles;
+    }
 }

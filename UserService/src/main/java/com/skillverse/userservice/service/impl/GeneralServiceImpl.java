@@ -2,8 +2,14 @@ package com.skillverse.userservice.service.impl;
 
 import java.util.Optional;
 
+import com.skillverse.userservice.controller.PublicController;
+import com.skillverse.userservice.entity.AppUser;
 import com.skillverse.userservice.entity.Course;
+import com.skillverse.userservice.mapper.UserServiceMapper;
 import com.skillverse.userservice.repository.SkillVerseUserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +18,7 @@ import com.skillverse.userservice.service.GeneralService;
 
 @Service
 public class GeneralServiceImpl implements GeneralService {
-
+    private static final Logger log = LoggerFactory.getLogger(GeneralServiceImpl.class);
     @Autowired
     SkillVerseUserRepository skillVerseUserRepository;
 
@@ -49,70 +55,75 @@ public class GeneralServiceImpl implements GeneralService {
         // 3. Wrap the array in an Optional and return it
         return Optional.of(courseArray);
     }
+
     @Override
-	public Optional<Long> findByProfileIdByUserName(String username) {
-		
-		return Optional.empty();
-	}
+    public Optional<Long> findByProfileIdByUserName(String username) {
 
-	@Override
-	public Optional<Long> findProfileIdByContactNumber(String contactNumber) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
-	}
+        return Optional.empty();
+    }
 
-	@Override
-	public Optional<Long> findProfileIdByEmail(String email) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
-	}
+    @Override
+    public Optional<Long> findProfileIdByContactNumber(String contactNumber) {
+        // TODO Auto-generated method stub
+        return Optional.empty();
+    }
 
-	@Override
-	public AppUserResponseDTO findProfileById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Optional<Long> findProfileIdByEmail(String email) {
+        // TODO Auto-generated method stub
+        return Optional.empty();
+    }
 
-	@Override
-	public AppUserResponseDTO findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AppUserResponseDTO findProfileById(Long id) {
+        log.info("Getting called General Service for Profile with id {}", id);
+        AppUser appUser = skillVerseUserRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No user found with id: " + id));
+        log.info(" id details {}", id);
+        return UserServiceMapper.getConvertAppUserToResponse(appUser);
+    }
 
-	@Override
-	public AppUserResponseDTO findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public AppUserResponseDTO findByContact(String contactNumber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AppUserResponseDTO findByUsername(String username) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean existsByUsername(String username) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public AppUserResponseDTO findByEmail(String email) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public String sendMailByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public AppUserResponseDTO findByContact(String contactNumber) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public String sendMailByUserId(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public boolean existsByUsername(String username) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public AppUserResponseDTO authenticate(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String sendMailByUsername(String username) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String sendMailByUserId(Long userId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public AppUserResponseDTO authenticate(String username, String password) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

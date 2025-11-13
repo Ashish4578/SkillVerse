@@ -2,6 +2,8 @@ package com.skillverse.userservice.service.impl;
 
 import java.util.List;
 
+import com.skillverse.userservice.entity.AppUser;
+import com.skillverse.userservice.entity.RegisterUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,9 @@ import com.skillverse.userservice.dto.AppUserResponseDTO;
 import com.skillverse.userservice.repository.SkillVerseUserRepository;
 import com.skillverse.userservice.service.GeneralService;
 import com.skillverse.userservice.service.SuperAdminProfileService;
+
+import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserRequestDTOToAppUser;
+import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserToResponse;
 
 @Service
 public class SuperAdminProfileServiceImpl implements SuperAdminProfileService{
@@ -33,7 +38,9 @@ public class SuperAdminProfileServiceImpl implements SuperAdminProfileService{
 	}
 
     @Override
-    public void createAdminProfile(AppUserRequestDTO dto) {
+    public AppUserResponseDTO createAdminProfile(AppUserRequestDTO dto) {
+        AppUser appUser = skillVerseUserRepository.save(getConvertAppUserRequestDTOToAppUser(dto));
+        return getConvertAppUserToResponse(appUser);
 
     }
 
