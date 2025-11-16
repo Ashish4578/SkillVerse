@@ -3,6 +3,7 @@ package com.skillverse.userservice.service.impl;
 import java.util.List;
 
 import com.skillverse.userservice.entity.AppUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppU
 import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserToResponse;
 
 @Service
+@Slf4j
 public class CreatorProfileServiceImpl implements CreatorProfileService{
 
 	@Autowired

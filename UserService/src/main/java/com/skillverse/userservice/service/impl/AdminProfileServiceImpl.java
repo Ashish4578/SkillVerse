@@ -3,6 +3,7 @@ package com.skillverse.userservice.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import com.skillverse.userservice.service.AdminProfileService;
 import com.skillverse.userservice.service.GeneralService;
 
 @Service
+@Slf4j
 public class AdminProfileServiceImpl implements AdminProfileService {
 	
 	@Autowired

@@ -4,7 +4,10 @@ import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppU
 import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserToResponse;
 
 import com.skillverse.userservice.controller.PublicController;
+import com.skillverse.userservice.dto.UpdateProfileData;
 import com.skillverse.userservice.entity.Course;
+import com.skillverse.userservice.entity.TypesOfUser;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +20,14 @@ import com.skillverse.userservice.repository.SkillVerseUserRepository;
 import com.skillverse.userservice.service.GeneralService;
 import com.skillverse.userservice.service.StudentProfileService;
 
-import jakarta.persistence.EntityNotFoundException;;import java.util.Optional;
+import jakarta.persistence.EntityNotFoundException;
+import java.util.Optional;
+import static com.skillverse.userservice.entity.TypesOfUser.STUDENT;
 
 @Service
+@Slf4j
 public class StudentProfileServiceImpl implements StudentProfileService {
 
-    private static final Logger log = LoggerFactory.getLogger(StudentProfileServiceImpl.class);
     @Autowired
     private GeneralService generalService;
     @Autowired
@@ -35,28 +40,21 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public AppUserResponseDTO updateOwnProfile(AppUserRequestDTO dto) {
-        // Try finding ID from username, contact, or email
-//		Long id = generalService.findByProfileIdByUserName(dto.getUsername())
-//				.or(() -> generalService.findProfileIdByContactNumber(dto.getContactNumber()))
-//				.or(() -> generalService.findProfileIdByEmail(dto.getEmail()))
-//				.orElseThrow(() -> new RuntimeException("No matching profile found"));
-//
-//		// Fetch user entity or throw exception
-//		AppUser existingUser = skillVerseUserRepository.findById(id)
-//				.orElseThrow(() -> new RuntimeException("User ID not found: " + id));
-//
-//		// Update fields
-//		existingUser.setUsername(dto.getUsername());
-//		existingUser.setContactNumber(dto.getContactNumber());
-//		existingUser.setEmail(dto.getEmail());
-//		existingUser.setEnabled(dto.isEnabled());
-//		existingUser.setRoles(dto.getRoles());
-//
-//		// Save and return response
-//		AppUser updatedUser = skillVerseUserRepository.save(existingUser);
-//		return getConvertAppUserToResponse(updatedUser);
-        return null;
+    public AppUserResponseDTO updateOwnProfile(long id, UpdateProfileData updateProfileData) {
+
+		// Fetch user entity or throw exception
+		AppUser existingUser = skillVerseUserRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("User ID not found: " + id));
+
+		// Update fields
+		existingUser.setUsername(updateProfileData.getUsername());
+		existingUser.setContactNumber(updateProfileData.getContactNumber());
+		existingUser.setEmail(updateProfileData.getEmail());
+		existingUser.setEnabled(updateProfileData.isEnabled());
+
+		// Save and return response
+		AppUser updatedUser = skillVerseUserRepository.save(existingUser);
+		return getConvertAppUserToResponse(updatedUser);
     }
 
     @Override
@@ -73,5 +71,4 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         log.info("Getting called General Service for Student Profile with id {}", id);
         return generalService.findProfileById(id);
     }
-
 }

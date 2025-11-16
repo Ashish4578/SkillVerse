@@ -6,6 +6,7 @@ import com.skillverse.userservice.entity.LoginUser;
 import com.skillverse.userservice.entity.RegisterUser;
 import com.skillverse.userservice.service.*;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,8 @@ import static com.skillverse.userservice.entity.Role.*;
 @RestController
 @Validated
 @RequestMapping("skillverse")
+@Slf4j
 public class PublicController {
-
-    private static final Logger log = LoggerFactory.getLogger(PublicController.class);
 
     @Autowired
     private GeneralService generalService;

@@ -6,6 +6,7 @@ import com.skillverse.userservice.entity.AppUser;
 import com.skillverse.userservice.entity.RegisterUser;
 import com.skillverse.userservice.service.CreatorProfileService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,8 @@ import static com.skillverse.userservice.entity.Role.ROLE_CREATOR;
 @RestController
 @Validated
 @RequestMapping("skillverse/super-admin")
+@Slf4j
 public class SuperAdminProfileController {
-
-    private static final Logger log = LoggerFactory.getLogger(SuperAdminProfileController.class);
 
     @Autowired
     private SuperAdminProfileService superAdminProfileService;

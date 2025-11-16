@@ -2,6 +2,7 @@ package com.skillverse.userservice.controller;
 
 import com.skillverse.userservice.entity.AppUser;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import com.skillverse.userservice.service.AdminProfileService;
 @RestController
 @Validated
 @RequestMapping("skillverse/admin")
+@Slf4j
 public class AdminProfileController {
 	
 	@Autowired 

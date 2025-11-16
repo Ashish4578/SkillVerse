@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.skillverse.userservice.entity.AppUser;
 import com.skillverse.userservice.entity.RegisterUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppU
 import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserToResponse;
 
 @Service
+@Slf4j
 public class SuperAdminProfileServiceImpl implements SuperAdminProfileService{
 
 	@Autowired
@@ -61,5 +63,25 @@ public class SuperAdminProfileServiceImpl implements SuperAdminProfileService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public void assignRoleToUser(Long userId, String roleName) {
+
+    }
+
+    @Override
+    public void removeRoleFromUser(Long userId, String roleName) {
+
+    }
+
+    @Override
+    public List<String> getUserRoles(Long userId) {
+        return List.of();
+    }
+
+    @Override
+    public void createOrUpdateRole(String roleName, List<String> permissions) {
+
+    }
 
 }

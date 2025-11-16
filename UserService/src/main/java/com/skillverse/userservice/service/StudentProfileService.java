@@ -2,6 +2,7 @@ package com.skillverse.userservice.service;
 
 import com.skillverse.userservice.dto.AppUserRequestDTO;
 import com.skillverse.userservice.dto.AppUserResponseDTO;
+import com.skillverse.userservice.dto.UpdateProfileData;
 
 public interface StudentProfileService {
 
@@ -9,7 +10,7 @@ public interface StudentProfileService {
 	AppUserResponseDTO createProfile(AppUserRequestDTO dto);
 
 	// Update User(own) Profile
-	AppUserResponseDTO updateOwnProfile(AppUserRequestDTO dto);
+	AppUserResponseDTO updateOwnProfile(long id, UpdateProfileData updateProfileData);
 
 	//  Delete User(own) Profile
 	void deleteOwnProfile(Long id);

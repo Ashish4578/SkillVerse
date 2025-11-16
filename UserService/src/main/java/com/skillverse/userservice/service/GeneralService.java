@@ -4,12 +4,15 @@ import java.util.Optional;
 
 import com.skillverse.userservice.dto.AppUserResponseDTO;
 import com.skillverse.userservice.entity.Course;
+import com.skillverse.userservice.entity.TypesOfUser;
 
 public interface GeneralService {
 
+    // Find Course List
     Optional<Course[]> getCourseList();
+
 	// Find Profile Id by User Name
-	Optional<Long> findByProfileIdByUserName(String username);
+    Optional<Long> findProfileIdByUserName(String username);
 
 	// Find Id by Contact Number
 	Optional<Long> findProfileIdByContactNumber(String contactNumber);
@@ -17,29 +20,39 @@ public interface GeneralService {
 	// Find id By email
 	Optional<Long> findProfileIdByEmail(String email);
 
-
 	// Find Profile by Id
 	AppUserResponseDTO findProfileById(Long id);
 
+    // Find Profile by Id by specified TypesOfUser
+    AppUserResponseDTO findProfileById(Long id, TypesOfUser userType);
+
 	// Find By User Name
-	AppUserResponseDTO findByUsername(String username);
+	Optional<AppUserResponseDTO> findByUsername(String username);
 
 	// Find By Email
-	AppUserResponseDTO findByEmail(String email);
+	AppUserResponseDTO findProfileByEmail(String email);
 
 	// Find by Contact Number
-	AppUserResponseDTO findByContact(String contactNumber);
+	AppUserResponseDTO findProfileByContactNumber(String contactNumber);
 
 	// Check whether User Name exists or Not
 	boolean existsByUsername(String username);
 
 	// Send notifications by User Name
-	String sendMailByUsername(String username);
+	Optional<String> sendMailByUsername(String username);
 
 	// Send notifications by id
-	String sendMailByUserId(Long userId);
+	Optional<String> sendMailByUserId(Long userId);
 
 	// Authenticate Profile
 	AppUserResponseDTO authenticate(String username, String password);
 
+    // Reset user password by email or username
+     void resetPassword(String identifier);
+
+     // Change user password by id
+     boolean changePassword(Long userId, String oldPassword, String newPassword);
+
+     // Validate password strength / policy
+     boolean validatePassword(String password);
 }

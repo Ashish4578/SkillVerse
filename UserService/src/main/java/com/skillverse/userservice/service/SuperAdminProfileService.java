@@ -25,4 +25,16 @@ public interface SuperAdminProfileService {
 
 	// Get list of all admins
 	List<AppUserResponseDTO> getAllAdmins();
+
+    // Assign role to user
+    void assignRoleToUser(Long userId, String roleName);
+
+     // Remove role from user
+     void removeRoleFromUser(Long userId, String roleName);
+
+     // List roles of a user
+     List<String> getUserRoles(Long userId);
+
+     // Define new role or update role permissions
+     void createOrUpdateRole(String roleName, List<String> permissions);
 }

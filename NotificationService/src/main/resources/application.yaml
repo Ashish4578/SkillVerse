@@ -1,0 +1,37 @@
+# Server port
+server:
+  port: 8086
+
+# Spring applicaton configuration
+spring:
+  application:
+    name: NotificationService
+
+# Database configuration
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/skillverse_users_data
+#    password: Sql#1541
+#    username: root
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#       dialect: org.hibernate.dialect.MySQL8Dialect
+
+# Config file configuration
+  config:
+    import: optional:configserver:http://localhost:8085
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+
+
