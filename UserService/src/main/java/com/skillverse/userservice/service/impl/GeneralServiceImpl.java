@@ -1,9 +1,13 @@
 package com.skillverse.userservice.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.skillverse.userservice.dto.AppUserRequestDTO;
+import com.skillverse.userservice.dto.UpdateProfileData;
 import com.skillverse.userservice.entity.AppUser;
 import com.skillverse.userservice.entity.Course;
+import com.skillverse.userservice.entity.Role;
 import com.skillverse.userservice.entity.TypesOfUser;
 import com.skillverse.userservice.mapper.UserServiceMapper;
 import com.skillverse.userservice.repository.SkillVerseUserRepository;
@@ -16,6 +20,10 @@ import org.springframework.stereotype.Service;
 
 import com.skillverse.userservice.dto.AppUserResponseDTO;
 import com.skillverse.userservice.service.GeneralService;
+
+import static com.skillverse.userservice.entity.TypesOfUser.STUDENT;
+import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserRequestDTOToAppUser;
+import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserToResponse;
 
 @Service
 @Slf4j
@@ -142,6 +150,44 @@ public class GeneralServiceImpl implements GeneralService {
 //            }
 //        }
 
+        return null;
+    }
+
+    @Override
+    public AppUserResponseDTO createProfile(AppUserRequestDTO dto, TypesOfUser userType) {
+        AppUser appUser = skillVerseUserRepository.save(getConvertAppUserRequestDTOToAppUser(dto));
+        return getConvertAppUserToResponse(appUser);
+    }
+
+    @Override
+    public AppUserResponseDTO updateOwnProfile(long id, UpdateProfileData updateProfileData, TypesOfUser userType) {
+        // Fetch user entity or throw exception
+        AppUser existingUser = skillVerseUserRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User ID not found: " + id));
+
+        // Update fields
+        existingUser.setUsername(updateProfileData.getUsername());
+        existingUser.setContactNumber(updateProfileData.getContactNumber());
+        existingUser.setEmail(updateProfileData.getEmail());
+        existingUser.setEnabled(updateProfileData.isEnabled());
+
+        // Save and return response
+        AppUser updatedUser = skillVerseUserRepository.save(existingUser);
+        return getConvertAppUserToResponse(updatedUser);
+    }
+
+    @Override
+    public void deleteOwnProfile(Long id, TypesOfUser userType) {
+        if (!skillVerseUserRepository.existsById(id)) {
+            throw new EntityNotFoundException("User ID not found: " + id);
+        }
+        skillVerseUserRepository.deleteById(id);
+    }
+
+    @Override
+    public List<AppUserResponseDTO> getAllUsersProfile(Role role) {
+        AppUser[] appUser= skillVerseUserRepository.findAllUsersByTypeOfUser(role).orElseThrow().toArray(new AppUser[0]);
+//    return  getConvertAppUserToResponse(appUser);
         return null;
     }
 

@@ -1,15 +1,16 @@
 package com.skillverse.userservice.controller;
 
-import com.skillverse.userservice.dto.AppUserRequestDTO;
 import com.skillverse.userservice.dto.AppUserResponseDTO;
 import com.skillverse.userservice.dto.UpdateProfileData;
-import com.skillverse.userservice.service.StudentProfileService;
+import com.skillverse.userservice.service.GeneralService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import static com.skillverse.userservice.entity.TypesOfUser.STUDENT;
 
 @RestController
 @RequestMapping("skillverse/student")
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class StudentServiceProfileController {
 
     @Autowired
-    private StudentProfileService studentProfileService;
+    private GeneralService generalService;
 
     @GetMapping
     public String getWelcomeMsg() {
@@ -28,20 +29,18 @@ public class StudentServiceProfileController {
     @GetMapping("/profile/{id}")
     public ResponseEntity<AppUserResponseDTO> getStudentProfile(@PathVariable @Valid Long id) {
         log.info("Getting Student Profile with id {}", id);
-        AppUserResponseDTO responseDTO = studentProfileService.getStudentProfileById(id);
-        return ResponseEntity.ok(responseDTO);
+        return ResponseEntity.ok(generalService.findProfileById(id, STUDENT));
     }
     @PutMapping("/profile/{id}")
     public ResponseEntity<AppUserResponseDTO> updateOwnProfile(@PathVariable Long id, @RequestBody @Valid UpdateProfileData updateProfileData) {
         log.info("Updating Student Profile");
-        AppUserResponseDTO responseDTO = studentProfileService.updateOwnProfile(id, updateProfileData);
-        return ResponseEntity.ok(responseDTO);
+        return ResponseEntity.ok(generalService.updateOwnProfile(id, updateProfileData,STUDENT));
     }
 
     @DeleteMapping("/profile/{id}")
     public ResponseEntity<AppUserResponseDTO> deleteOwnProfile(@PathVariable @Valid Long id) {
         log.info("Deleting Student Profile with id ");
-        studentProfileService.deleteOwnProfile(id);
+        generalService.deleteOwnProfile(id, STUDENT);
         return ResponseEntity.noContent().build();
     }
 }

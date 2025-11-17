@@ -2,25 +2,22 @@ package com.skillverse.userservice.controller;
 
 import com.skillverse.userservice.dto.AppUserRequestDTO;
 import com.skillverse.userservice.dto.AppUserResponseDTO;
-import com.skillverse.userservice.entity.AppUser;
 import com.skillverse.userservice.entity.RegisterUser;
-import com.skillverse.userservice.service.CreatorProfileService;
+import com.skillverse.userservice.service.GeneralService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.skillverse.userservice.service.SuperAdminProfileService;
-
 import java.util.Collections;
 
 import static com.skillverse.userservice.entity.Role.ROLE_ADMIN;
-import static com.skillverse.userservice.entity.Role.ROLE_CREATOR;
+import static com.skillverse.userservice.entity.Role.ROLE_STUDENT;
+import static com.skillverse.userservice.entity.TypesOfUser.ADMIN;
+import static com.skillverse.userservice.entity.TypesOfUser.STUDENT;
 
 @RestController
 @Validated
@@ -29,7 +26,7 @@ import static com.skillverse.userservice.entity.Role.ROLE_CREATOR;
 public class SuperAdminProfileController {
 
     @Autowired
-    private SuperAdminProfileService superAdminProfileService;
+    private GeneralService generalService;
 
     @GetMapping("/")
     public String getMsg() {
@@ -44,13 +41,12 @@ public class SuperAdminProfileController {
 
     @PostMapping("/create-admin")
     public ResponseEntity<AppUserResponseDTO> createAdminProfile(@Valid @RequestBody RegisterUser registerUser) {
+        log.info("Creating Admin Profile");
         AppUserRequestDTO adminProfile = new AppUserRequestDTO(registerUser.getUsername(), registerUser.getPassword(),
                 true, registerUser.getEmail(), registerUser.getPhone(), Collections.singleton(ROLE_ADMIN));
-        log.info("Creating Super Admin Profile");
-        return new ResponseEntity<>(superAdminProfileService.createAdminProfile(adminProfile), HttpStatus.CREATED);
+
+        return new ResponseEntity<>(generalService.createProfile(adminProfile, ADMIN), HttpStatus.CREATED);
     }
-
-
 
 
 }

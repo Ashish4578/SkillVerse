@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.skillverse.userservice.dto.AppUserResponseDTO;
 import com.skillverse.userservice.entity.Course;
+import com.skillverse.userservice.entity.TypesOfUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -36,5 +37,13 @@ public interface SkillVerseUserRepository extends JpaRepository<AppUser, Long> {
     Optional<AppUser> findByContactNumber(@Param("contactNumber") String contactNumber);
 
     boolean existsByUsername(String username);
+
+//    @Query("SELECT au, ur FROM AppUser au JOIN UserRoles ur ON au.appUserId = ur.appUserId WHERE ur.roleName = :typeOfUser")
+//    List<AppUserResponseDTO> findAllUsersByTypeOfUser(@Param("typeOfUser")TypesOfUser typeOfUser);
+
+    @Query("SELECT au FROM AppUser au JOIN au.roles r WHERE r = :typeOfUser")
+    Optional<List<AppUser>> findAllUsersByTypeOfUser(@Param("typeOfUser") Role role);
+
+
 }
 

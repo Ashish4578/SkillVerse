@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static com.skillverse.userservice.entity.Role.*;
+import static com.skillverse.userservice.entity.TypesOfUser.CREATOR;
+import static com.skillverse.userservice.entity.TypesOfUser.STUDENT;
 
 @RestController
 @Validated
@@ -28,18 +30,6 @@ public class PublicController {
 
     @Autowired
     private GeneralService generalService;
-
-    @Autowired
-    private CreatorProfileService creatorProfileService;
-
-    @Autowired
-    private SuperAdminProfileService superAdminProfileService;
-
-    @Autowired
-    private AdminProfileService adminProfileService;
-
-    @Autowired
-    private StudentProfileService studentProfileService;
 
     @GetMapping("/")
     public ResponseEntity<?> getCourseList() {
@@ -60,42 +50,21 @@ public class PublicController {
 
         switch (registerUser.getRole()) {
             case STUDENT:
-                AppUserRequestDTO studentUser = new AppUserRequestDTO(registerUser.getUsername(), registerUser.getPassword(),
+                AppUserRequestDTO studentProfile = new AppUserRequestDTO(registerUser.getUsername(), registerUser.getPassword(),
                         true, registerUser.getEmail(), registerUser.getPhone(), Collections.singleton(ROLE_STUDENT));
-                studentProfileService.createProfile(studentUser);
-                log.info("Profile is created : Creator");
+                generalService.createProfile(studentProfile, STUDENT);
+                log.info("Profile is created : Student");
                 return ResponseEntity.ok("Student registered successfully");
 
             case CREATOR:
-                AppUserRequestDTO creatorUser = new AppUserRequestDTO(registerUser.getUsername(), registerUser.getPassword(),
+                AppUserRequestDTO creatorProfile = new AppUserRequestDTO(registerUser.getUsername(), registerUser.getPassword(),
                         true, registerUser.getEmail(), registerUser.getPhone(), Collections.singleton(ROLE_CREATOR));
-                creatorProfileService.createCreatorProfile(creatorUser);
+                generalService.createProfile(creatorProfile, CREATOR);
                 log.info("Profile is created : Creator");
                 return ResponseEntity.ok("Creator registered successfully");
 
             default:
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-
-
     }
-
-
-//    @PostMapping("/login")
-//    public ResponseEntity<String> loginUser(@Valid @RequestBody LoginUser loginUser) {
-//        switch (loginUser.getTypesOfUser()) {
-//            case STUDENT:
-//
-//                return ResponseEntity.ok("Student login successfully");
-//
-//            case CREATOR:
-//                // Creator page
-//                return ResponseEntity.ok("Creator login successfully");
-//
-//            default:
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        }
-//    }
-
-
 }
