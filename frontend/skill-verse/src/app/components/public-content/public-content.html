@@ -1,0 +1,19 @@
+<div class="outer-container">
+    <div class="inner-container">
+        <div class="card">
+            @for (course of courses; track course.courseId) {
+            <ul>
+                <h2>{{course.courseName}}</h2>
+                <li>{{course.courseId}}</li>
+                <li>{{course.courseDescription}}</li>
+                <li>{{course.courseImg}}</li>
+                <li>{{course.coursePrice}}</li>
+                <li>{{course.courseCategory}}</li>
+                <li>{{course.courseCreatorName}}</li>
+                <li>{{course.courseCreatorPhone}}</li>
+                <li>{{course.courseCreatorEmail}}</li>
+            </ul>
+            }
+        </div>
+    </div>
+</div>

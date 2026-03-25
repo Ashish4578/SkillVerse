@@ -10,19 +10,29 @@ spring:
         - id: user-service
           uri: lb://User-Service
           predicates:
-            - Path=/users/**
+            - Path=/skillverse/users/**
         - id: course-service
           uri: lb://Course-Service
           predicates:
-            - Path=/courses/**
+            - Path=/skillverse/courses/**
         - id: rating-service
           uri: lb://Rating-Service
           predicates:
-            - Path=/ratings/**
+            - Path=/skillverse/ratings/**
         - id: enrollment-service
           uri: lb://Enrollment-Service
           predicates:
-            - Path=/enrollments/**
+            - Path=/skillverse/enrollments/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders: "*"
   config:
     import: optional:configserver:http://localhost:8085
   security:

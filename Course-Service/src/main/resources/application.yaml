@@ -10,7 +10,7 @@ spring:
 
 # Database configuration
   datasource:
-    url: jdbc:mysql://localhost:3306/skillverse
+    url: jdbc:mysql://localhost:3306/skillverse_course_data
     password: Sql#1541
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver

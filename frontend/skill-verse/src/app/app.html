@@ -1,0 +1,14 @@
+<ul>
+  <li (click)="showSignup()">Sign up</li>
+  <li (click)="showRegister()">Register</li>
+</ul>
+
+@if (view === 'signup') {
+  <app-sign-up></app-sign-up>
+} @else if (view === 'register') {
+  <app-register></app-register>
+}
+
+<div class="public-content">
+  <app-public-content></app-public-content>
+</div>

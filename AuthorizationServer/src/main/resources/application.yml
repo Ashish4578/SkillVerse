@@ -9,7 +9,7 @@ logging:
 
 spring:
   application:
-    name : AuthorizationServer
+    name: AuthorizationServer
   security:
     user:
       name: "user"
@@ -70,5 +70,19 @@ spring:
                 - "message:read"
                 - "message:write"
             require-authorization-consent: true
+
+  # Database configuration
+  datasource:
+    url: jdbc:mysql://localhost:3306/skillverse_auth_server
+    password: Sql#1541
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
             
             

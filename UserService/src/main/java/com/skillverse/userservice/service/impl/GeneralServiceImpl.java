@@ -1,9 +1,7 @@
 package com.skillverse.userservice.service.impl;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.skillverse.userservice.dto.AppUserRequestDTO;
+import com.skillverse.userservice.dto.AppUserResponseDTO;
 import com.skillverse.userservice.dto.UpdateProfileData;
 import com.skillverse.userservice.entity.AppUser;
 import com.skillverse.userservice.entity.Course;
@@ -11,17 +9,16 @@ import com.skillverse.userservice.entity.Role;
 import com.skillverse.userservice.entity.TypesOfUser;
 import com.skillverse.userservice.mapper.UserServiceMapper;
 import com.skillverse.userservice.repository.SkillVerseUserRepository;
+import com.skillverse.userservice.service.GeneralService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skillverse.userservice.dto.AppUserResponseDTO;
-import com.skillverse.userservice.service.GeneralService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-import static com.skillverse.userservice.entity.TypesOfUser.STUDENT;
 import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserRequestDTOToAppUser;
 import static com.skillverse.userservice.mapper.UserServiceMapper.getConvertAppUserToResponse;
 
@@ -111,46 +108,24 @@ public class GeneralServiceImpl implements GeneralService {
 
     @Override
     public AppUserResponseDTO findProfileById(Long id, TypesOfUser userType) {
-//        @Override
-//        public AppUserResponseDTO findProfileById(Long id, TypesOfUser requesterType, boolean isOwnProfile) {
-//            AppUser appUser = skillVerseUserRepository.findById(id)
-//                    .orElseThrow(() -> new EntityNotFoundException("No user found with ID: " + id));
-//
-//            boolean canView = false;
-//
-//            if (isOwnProfile) {
-//                // Always allow users to view their own profile
-//                canView = true;
-//            } else {
-//                switch (requesterType) {
-//                    case SUPER_ADMIN:
-//                    case ADMIN:
-//                        // Admins and super admins can view all profiles
-//                        canView = true;
-//                        break;
-//                    case CREATOR:
-//                    case STUDENT:
-//                        // Other roles cannot view other users' profiles
-//                        canView = false;
-//                        break;
-//                    default:
-//                        throw new AccessDeniedException("Unknown user type");
-//                }
-//            }
-//
-//            if (!canView) {
-//                throw new AccessDeniedException("You do not have permission to view this profile");
-//            }
-//
-//            // Customize response based on profile ownership or requesterType if needed
-//            if (isOwnProfile) {
-//                return UserServiceMapper.toDetailedResponse(appUser); // full info
-//            } else {
-//                return UserServiceMapper.toPublicResponse(appUser, requesterType); // limited info
-//            }
+        AppUser appUser = skillVerseUserRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No user found with ID: " + id));
+
+//        switch (userType) {
+//            case SUPER_ADMIN:
+//                break;
+//            case ADMIN:
+//                break;
+//            case CREATOR:
+//                break;
+//            case STUDENT:
+//                AppUser appUserStudentRepo = skillVerseUserRepository.findById(id).get();
+//                break;
+//            default:
+//                System.out.println("Invalid user type: " + userType);
 //        }
 
-        return null;
+        return getConvertAppUserToResponse(appUser);
     }
 
     @Override
@@ -186,9 +161,12 @@ public class GeneralServiceImpl implements GeneralService {
 
     @Override
     public List<AppUserResponseDTO> getAllUsersProfile(Role role) {
-        AppUser[] appUser= skillVerseUserRepository.findAllUsersByTypeOfUser(role).orElseThrow().toArray(new AppUser[0]);
-//    return  getConvertAppUserToResponse(appUser);
-        return null;
+        AppUser[] appUser = skillVerseUserRepository.findAllUsersByTypeOfUser(role).orElseThrow().toArray(new AppUser[0]);
+        List<AppUserResponseDTO> appUserResponseDTO = new ArrayList<>();
+        for (int i = 0; i < appUser.length; i++) {
+            appUserResponseDTO.add(UserServiceMapper.getConvertAppUserToResponse(appUser[i]));
+        }
+        return appUserResponseDTO;
     }
 
     // Fetch profile by username reusing findProfileById and ID fetch method
