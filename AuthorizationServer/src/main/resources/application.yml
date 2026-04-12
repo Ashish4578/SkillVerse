@@ -1,82 +1,24 @@
 server:
   port: 8087
 
-
 logging:
   level:
-    org.springframework.security: trace
+    org.springframework.security: DEBUG
 
+jwt:
+  secret: 8f7c9a1e2b3d4f5g6h7j8k9l0m1n2o3p
+  expiration: 900000
 
 spring:
   application:
-    name: AuthorizationServer
-  security:
-    user:
-      name: "user"
-      password: "password"
-      roles:
-        - "USER"
-    oauth2:
-      authorizationserver:
-        issuer: http://localhost:8087
-        client:
-          login-client:
-            registration:
-              client-id: "login-client"
-              client-secret: "{noop}openid-connect"
-              client-authentication-methods:
-                - "client_secret_basic"
-              authorization-grant-types:
-                - "authorization_code"
-                - "refresh_token"
-              redirect-uris:
-                - "http://127.0.0.1:8080/login/oauth2/code/login-client"
-                - "http://127.0.0.1:8080/authorized"
-              scopes:
-                - "openid"
-                - "profile"
-            require-authorization-consent: true
-          login-client-with-messaging:
-            registration:
-              client-id: "login-client-with-messaging"
-              client-secret: "{noop}with-messages"
-              client-authentication-methods:
-                - "client_secret_basic"
-              authorization-grant-types:
-                - "authorization_code"
-                - "refresh_token"
-              redirect-uris:
-                - "http://127.0.0.1:8080/login/oauth2/code/login-client-with-messaging"
-                - "http://127.0.0.1:8080/authorized"
-              scopes:
-                - "openid"
-                - "profile"
-                - "message:read"
-                - "message:write"
-            require-authorization-consent: true
-          messaging-client:
-            registration:
-              client-id: "messaging-client"
-              client-secret: "{noop}secret"
-              client-authentication-methods:
-                - "client_secret_basic"
-              authorization-grant-types:
-                - "authorization_code"
-                - "refresh_token"
-                - "client_credentials"
-              redirect-uris:
-                - "http://127.0.0.1:8080/authorized"
-              scopes:
-                - "message:read"
-                - "message:write"
-            require-authorization-consent: true
+    name: auth-server
 
-  # Database configuration
   datasource:
     url: jdbc:mysql://localhost:3306/skillverse_auth_server
-    password: Sql#1541
     username: root
+    password: Sql#1541
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -84,5 +26,3 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-            
-            

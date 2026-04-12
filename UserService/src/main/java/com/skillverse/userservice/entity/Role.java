@@ -1,20 +1,32 @@
 package com.skillverse.userservice.entity;
 
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.Set;
 
-public enum Role {
-    ROLE_STUDENT(Set.of(Permission.READ_COURSE)),
-    ROLE_CREATOR(Set.of(Permission.READ_COURSE, Permission.CREATE_COURSE)),
-    ROLE_ADMIN(Set.of(Permission.READ_COURSE, Permission.CREATE_COURSE, Permission.DELETE_COURSE, Permission.DELETE_USER)),
-    ROLE_SUPER_ADMIN(Set.of(Permission.values())); // All permissions
+@Entity
+@Table(name = "roles")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Role {
 
-    private final Set<Permission> permissions;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    Role(Set<Permission> permissions) {
-        this.permissions = permissions;
-    }
+    @Column(unique = true, nullable = false)
+    private String name;   // e.g. ROLE_ADMIN
 
-    public Set<Permission> getPermissions() {
-        return permissions;
-    }
+    // 🔹 Role → Permissions
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "role_permissions",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private Set<Permission> permissions;
 }

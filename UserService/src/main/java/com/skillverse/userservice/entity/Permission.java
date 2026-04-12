@@ -1,9 +1,21 @@
 package com.skillverse.userservice.entity;
 
-public enum Permission {
-    READ_COURSE,
-    CREATE_COURSE,
-    DELETE_COURSE,
-    DELETE_USER,
-    DELETE_ADMIN
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Table(name = "permissions")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Permission {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true, nullable = false)
+    private String name;
 }

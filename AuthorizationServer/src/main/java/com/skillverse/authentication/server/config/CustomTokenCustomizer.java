@@ -1,17 +1,16 @@
 package com.skillverse.authentication.server.config;
 
-import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
-import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomTokenCustomizer implements OAuth2TokenCustomizer<JwtEncodingContext> {
+public class CustomTokenCustomizer {
+//        implements OAuth2TokenCustomizer<JwtEncodingContext> {
 
 //    @Autowired
 //    private UserServiceClient userServiceClient;
 //
-    @Override
-    public void customize(JwtEncodingContext context) {
+//    @Override
+//    public void customize(JwtEncodingContext context) {
 //        String username = context.getPrincipal().getName();
 //
 //        // Step 1: Try to find the user
@@ -26,5 +25,5 @@ public class CustomTokenCustomizer implements OAuth2TokenCustomizer<JwtEncodingC
 //        if (user != null && user.getRole() != null) {
 //            context.getClaims().claim("role", user.getRole());
 //        }
-    }
+//    }
 }

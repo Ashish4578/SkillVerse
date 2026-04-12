@@ -1,70 +1,42 @@
 package com.skillverse.userservice.entity;
 
-import java.util.HashSet;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.Set;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity
-@Table(name = "app_user")
-@Data
+@Table(name = "users")
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long appUserId;
+    private Long id;
 
-    @NotBlank(message = "Username cannot be empty")
-    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+    @Column(unique = true, nullable = false)
     private String username;
 
-    @NotBlank
-    @Size(min = 3, max = 10, message = "Password must be between 3 and 10 characters")
-    private String password;
-
-    @NotBlank(message = "Email cannot be empty")
-    @Email(message = "Invalid email format")
-    @Size(max = 100, message = "Email cannot exceed 100 characters")
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @NotBlank(message = "Contact number cannot be empty")
-    @Pattern(regexp = "\\d{10}", message = "Contact number must be 10 digits")
+    @Column(nullable = false)
+    private String password;
+
     private String contactNumber;
 
-    private boolean enabled = true;
+    private boolean enabled;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "app_user_id"))
-    @Column(name = "role_name")
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles = new HashSet<>();
-
-    public AppUser(String username, String password, String email, String contactNumber, boolean enabled, Set<Role> roles) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.contactNumber = contactNumber;
-        this.enabled = enabled;
-        this.roles = roles;
-    }
+    // 🔹 User → Roles
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 }

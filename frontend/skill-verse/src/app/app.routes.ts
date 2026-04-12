@@ -2,10 +2,12 @@ import { Routes } from '@angular/router';
 import { PublicContent } from './components/public-content/public-content';
 import { SignUp } from './components/sign-up/sign-up';
 import { Register } from './components/register/register';
+import { ProfilePage } from './components/profile-page/profile-page';
 
 export const routes: Routes = [
 
   { path: '', component: PublicContent },
   { path: 'signup', component: SignUp },
-  { path: 'register', component: Register }
+  { path: 'register', component: Register },
+  { path: 'profile', component: ProfilePage }
 ];

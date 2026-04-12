@@ -1,14 +1,17 @@
 <ul>
   <li (click)="showSignup()">Sign up</li>
   <li (click)="showRegister()">Register</li>
+  <li (click)="showProfile()">Profile</li>
 </ul>
 
 @if (view === 'signup') {
-  <app-sign-up></app-sign-up>
+<app-sign-up></app-sign-up>
 } @else if (view === 'register') {
-  <app-register></app-register>
+<app-register></app-register>
 }
-
+@else if (view === 'profile') {
+<app-profile-page></app-profile-page>
+}
 <div class="public-content">
   <app-public-content></app-public-content>
 </div>

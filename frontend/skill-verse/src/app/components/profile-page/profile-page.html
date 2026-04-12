@@ -1,0 +1,38 @@
+<div class="outer-container">
+  <div class="inner-container">
+    <h1 class="heading">Profile Page</h1>
+
+    <div class="profile-container">
+
+      <div class="form-group">
+        <label>Username:</label>
+        <span class="profile-fields">{{ profile?.username }}</span>
+      </div>
+
+      <div class="form-group">
+        <label>Email:</label>
+        <span class="profile-fields">{{ profile?.email }}</span>
+      </div>
+
+      <div class="form-group">
+        <label>Contact Number:</label>
+        <span class="profile-fields">{{ profile?.contactNumber }}</span>
+      </div>
+
+      <div class="form-group">
+        <label>Enabled:</label>
+        <span class="profile-fields">
+          {{ profile?.enabled ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>Roles:</label>
+        <span class="profile-fields">
+          {{ profile?.roles?.join(', ') }}
+        </span>
+      </div>
+
+    </div>
+  </div>
+</div>

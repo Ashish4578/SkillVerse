@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseDetails } from '../../model/course-details/course-details';
+import { CourseDetails } from '../../model/course-details';
 import { SkillVerseService } from '../../service/skill-verse-service';
 import { error } from 'console';
 import { CommonModule } from '@angular/common';

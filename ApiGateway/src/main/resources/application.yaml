@@ -11,18 +11,51 @@ spring:
           uri: lb://User-Service
           predicates:
             - Path=/skillverse/users/**
+          filters:
+            - StripPrefix=1
+
+        - id: admin-service
+          uri: lb://User-Service
+          predicates:
+            - Path=/skillverse/admins/**
+          filters:
+            - StripPrefix=1
+
+        - id: super-service
+          uri: lb://User-Service
+          predicates:
+            - Path=/skillverse/superadmin/**
+          filters:
+            - StripPrefix=1
+
         - id: course-service
           uri: lb://Course-Service
           predicates:
             - Path=/skillverse/courses/**
+          filters:
+            - StripPrefix=1
+
         - id: rating-service
           uri: lb://Rating-Service
           predicates:
             - Path=/skillverse/ratings/**
+          filters:
+            - StripPrefix=1
+
         - id: enrollment-service
           uri: lb://Enrollment-Service
           predicates:
             - Path=/skillverse/enrollments/**
+          filters:
+            - StripPrefix=1
+
+        - id: user-auth
+          uri: lb://User-Service
+          predicates:
+            - Path=/skillverse/auth/**
+          filters:
+            - StripPrefix=1
+
       globalcors:
         corsConfigurations:
           '[/**]':

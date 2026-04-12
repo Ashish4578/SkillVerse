@@ -12,11 +12,11 @@ export class SignUp {
 
   signUpData = {
     username: '',
-    email: '',
+    role: 'STUDENT',
     password: ''
   };
   onSubmit() {
     // Handle form submission logic here
-    console.log('Form submitted!');
+    console.log('Form submitted!' + JSON.stringify(this.signUpData));
   }
 }
