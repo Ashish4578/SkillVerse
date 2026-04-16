@@ -1,12 +1,13 @@
 package com.skillverse.userservice.service;
 
 import com.skillverse.userservice.dto.response.UserResponseDTO;
+import com.skillverse.userservice.entity.UserRequestContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 public interface AdminService {
-    Page<UserResponseDTO> getAllManagedUsers(Pageable pageable);
-    void deleteUser(Long userId);
+
+    Page<UserResponseDTO> getAllUsers(UserRequestContext context, Pageable pageable);
+
+    void deleteUser(UserRequestContext context, Long userId);
 }

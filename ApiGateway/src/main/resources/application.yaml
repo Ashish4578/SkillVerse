@@ -3,88 +3,119 @@ server:
 
 spring:
   application:
-    name: ApiGateway
+    name: api-gateway
+
+  config:
+    import: optional:configserver:http://localhost:8085
+
   cloud:
     gateway:
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+
       routes:
+
+        #  AUTH SERVICE (PUBLIC)
+        - id: auth-service
+          uri: lb://AUTH-SERVER
+          predicates:
+            - Path=/skillverse/auth/**
+          filters:
+            - StripPrefix=1
+
+        #  USER SERVICE
         - id: user-service
-          uri: lb://User-Service
+          uri: lb://USER-SERVICE
           predicates:
             - Path=/skillverse/users/**
           filters:
             - StripPrefix=1
 
+        #  ADMIN ROUTES (same service)
         - id: admin-service
-          uri: lb://User-Service
+          uri: lb://USER-SERVICE
           predicates:
             - Path=/skillverse/admins/**
           filters:
             - StripPrefix=1
 
-        - id: super-service
-          uri: lb://User-Service
+        #  SUPER ADMIN ROUTES
+        - id: super-admin-service
+          uri: lb://USER-SERVICE
           predicates:
             - Path=/skillverse/superadmin/**
           filters:
             - StripPrefix=1
 
+        #  COURSE SERVICE
         - id: course-service
-          uri: lb://Course-Service
+          uri: lb://COURSE-SERVICE
           predicates:
             - Path=/skillverse/courses/**
           filters:
             - StripPrefix=1
 
+        #  RATING SERVICE
         - id: rating-service
-          uri: lb://Rating-Service
+          uri: lb://RATING-SERVICE
           predicates:
             - Path=/skillverse/ratings/**
           filters:
             - StripPrefix=1
 
+        #  ENROLLMENT SERVICE
         - id: enrollment-service
-          uri: lb://Enrollment-Service
+          uri: lb://ENROLLMENT-SERVICE
           predicates:
             - Path=/skillverse/enrollments/**
-          filters:
-            - StripPrefix=1
-
-        - id: user-auth
-          uri: lb://User-Service
-          predicates:
-            - Path=/skillverse/auth/**
           filters:
             - StripPrefix=1
 
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:4200"
+            allowedOrigins:
+              - http://localhost:4200
             allowedMethods:
               - GET
               - POST
               - PUT
               - DELETE
+              - OPTIONS
             allowedHeaders: "*"
-  config:
-    import: optional:configserver:http://localhost:8085
-  security:
-    user:
-      name: a
-      password: aa
+            allowCredentials: true
 
+# JWT CONFIG (MUST MATCH AUTH SERVER)
+jwt:
+  secret: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY3ODkwYWJjZA==
 
-
+#  SERVICE DISCOVERY
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
+    registry-fetch-interval-seconds: 5
     service-url:
       defaultZone: http://localhost:8761/eureka
+
   instance:
     prefer-ip-address: true
-    
-    
+
+#  ACTUATOR
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+#  LOGGING
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway: INFO
+    reactor.netty: INFO
+    org.springframework.cloud.loadbalancer: DEBUG
+

@@ -1,23 +1,26 @@
 package com.skillverse.courseservice.service;
 
-import com.skillverse.courseservice.DTO.CourseDetailsRequestDTO;
-import com.skillverse.courseservice.DTO.CourseDetailsResponseDTO;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.skillverse.courseservice.DTO.request.CourseDetailsRequestDTO;
+import com.skillverse.courseservice.DTO.response.CourseDetailsResponseDTO;
+import com.skillverse.courseservice.model.UserRequestContext;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface CourseService {
 
-    CourseDetailsResponseDTO getCourseDetails(Long courseId);
+    CourseDetailsResponseDTO getCourseById(Long courseId);
 
-    List<CourseDetailsResponseDTO> getAllCourses();
+    Page<CourseDetailsResponseDTO> getAllCourses(Pageable pageable);
 
-    CourseDetailsResponseDTO addCourse(CourseDetailsRequestDTO courseDetailsRequestDTO);
+    CourseDetailsResponseDTO createCourse(UserRequestContext context, CourseDetailsRequestDTO request);
 
-    CourseDetailsResponseDTO updateCourse(Long courseId, CourseDetailsRequestDTO courseDetailsRequestDTO);
+    CourseDetailsResponseDTO updateCourse(UserRequestContext context, Long courseId, CourseDetailsRequestDTO request);
 
-    void deleteCourse(Long courseId);
+    void deleteCourse(UserRequestContext context, Long courseId);
 
-    List<CourseDetailsResponseDTO> searchCourse(@RequestParam String keyword);
+    Page<CourseDetailsResponseDTO> searchCourse(String keyword, Pageable pageable);
 
+    public void updateCourseRating(Long courseId, int newRating);
 }

@@ -1,13 +1,15 @@
 package com.skillverse.userservice.exception;
 
+import com.skillverse.userservice.dto.response.ErrorResponseDTO;
+import com.skillverse.userservice.dto.response.ValidationErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,67 +17,59 @@ import java.util.Map;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    //  Resource Not Found
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException ex){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Map.of(
-                        "message", ex.getMessage(),
-                        "status", HttpStatus.NOT_FOUND.value()
-                ));
+    public ResponseEntity<ErrorResponseDTO> handleResourceNotFound(ResourceNotFoundException ex) {
+        log.warn("Resource not found: {}", ex.getMessage());
+        return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "RESOURCE_NOT_FOUND");
     }
 
+    //  Duplicate User
     @ExceptionHandler(DuplicateUserException.class)
-    public ResponseEntity<?> handleDuplicateUserException(DuplicateUserException ex){
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Map.of(
-                        "message", ex.getMessage(),
-                        "status", HttpStatus.CONFLICT.value()
-                ));
+    public ResponseEntity<ErrorResponseDTO> handleDuplicateUser(DuplicateUserException ex) {
+        log.warn("Duplicate user: {}", ex.getMessage());
+        return buildResponse(HttpStatus.CONFLICT, ex.getMessage(), "DUPLICATE_USER");
     }
 
-    @ExceptionHandler(PasswordUserException.class)
-    public ResponseEntity<?> handlePasswordUserException(PasswordUserException ex){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Map.of(
-                        "message", ex.getMessage(),
-                        "status", HttpStatus.BAD_REQUEST.value()
-                ));
-    }
-
+    //  Validation Errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
+    public ResponseEntity<ValidationErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
+
         Map<String, String> errors = new HashMap<>();
 
         ex.getBindingResult().getFieldErrors()
-                .forEach(error ->
-                        errors.put(error.getField(), error.getDefaultMessage())
-                );
+                .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
 
         return ResponseEntity.badRequest().body(
-                Map.of(
-                        "status", 400,
-                        "errors", errors
-                )
+                ValidationErrorResponse.builder()
+                        .status(HttpStatus.BAD_REQUEST.value())
+                        .errorCode("VALIDATION_FAILED")
+                        .errors(errors)
+                        .timestamp(LocalDateTime.now())
+                        .build()
         );
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<?> handleAccessDenied(AccessDeniedException ex){
-        return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(Map.of(
-                        "status", 403,
-                        "message", ex.getMessage()
-                ));
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorResponseDTO> handleUnauthorized(UnauthorizedException ex) {
+        return buildResponse(HttpStatus.FORBIDDEN, ex.getMessage(), "ACCESS_DENIED");
     }
 
+    //  Generic Exception (Fallback)
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleException(Exception ex){
+    public ResponseEntity<ErrorResponseDTO> handleException(Exception ex) {
         log.error("Unexpected error occurred", ex);
+        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", "INTERNAL_ERROR");
+    }
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of(
-                        "status", 500,
-                        "message", "Something went wrong"
-                ));
+    //  Common Response Builder
+    private ResponseEntity<ErrorResponseDTO> buildResponse(HttpStatus status, String message, String errorCode) {
+        return ResponseEntity.status(status)
+                .body(ErrorResponseDTO.builder()
+                        .status(status.value())
+                        .message(message)
+                        .errorCode(errorCode)
+                        .timestamp(LocalDateTime.now())
+                        .build());
     }
 }

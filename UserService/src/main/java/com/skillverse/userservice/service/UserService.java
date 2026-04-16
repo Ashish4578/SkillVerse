@@ -1,17 +1,16 @@
 package com.skillverse.userservice.service;
 
-import com.skillverse.userservice.dto.request.ChangePasswordRequest;
-import com.skillverse.userservice.dto.request.UpdateProfileData;
+import com.skillverse.userservice.dto.request.UpdateUserRequest;
 import com.skillverse.userservice.dto.response.UserResponseDTO;
+import com.skillverse.userservice.entity.UserRequestContext;
 
 public interface UserService {
-    // 🔹 Self (User / Creator / Admin / SuperAdmin)
-    UserResponseDTO getMyProfile();
 
-    UserResponseDTO updateMyProfile(UpdateProfileData data);
+    UserResponseDTO getMyProfile(UserRequestContext context);
 
-    void deleteMyProfile();
+    UserResponseDTO updateMyProfile(UserRequestContext context, UpdateUserRequest request);
 
-    public void changePassword(ChangePasswordRequest request);
+    void deleteMyProfile(UserRequestContext context);
 
+    UserResponseDTO getUserById(Long userId);
 }

@@ -1,38 +1,65 @@
 package com.skillverse.courseservice.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(name = "courses", indexes = {
+        @Index(name = "idx_created_by", columnList = "createdBy"),
+        @Index(name = "idx_course_name", columnList = "courseName")
+})
+@Getter
+@Setter
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
+@Builder
 public class CourseDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long courseId;
 
-    @NotBlank(message = "Course name cannot be blank")
-    @Size(min = 3, max = 20, message = "Course name must be between 3 and 100 characters")
+    @Column(nullable = false)
     private String courseName;
 
-    @NotBlank(message = "Course description cannot be blank")
-    @Size(min = 3, max = 100, message = "Course description must be between 3 and 100 characters")
+    @Column(nullable = false, length = 500)
     private String courseDescription;
 
-    @NotBlank(message = "Course instructor cannot be blank")
-    @Size(min = 3, max = 20, message = "Course instructor must be mentioned")
+    @Column(nullable = false)
     private String courseInstructor;
 
+    @Column(nullable = false)
+    private String courseTime;
+
+    @Column(nullable = false)
+    private Long createdBy;
+
+    @Column(nullable = false)
+    private double coursePrice;
 
     private String courseDuration;
 
-    private double coursePrice;
+    @Column(updatable = false, nullable = false)
+    private LocalDateTime createdAt;
 
-    @NotBlank(message = "Course time cannot be blank")
-    private String courseTime;
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
 
+    @Version
+    private Long version;
+    private double averageRating;
+    private long totalRatings;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

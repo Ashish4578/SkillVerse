@@ -1,15 +1,19 @@
 package com.skillverse.userservice.controller;
 
-import com.skillverse.userservice.dto.request.ChangePasswordRequest;
-import com.skillverse.userservice.dto.request.UpdateProfileData;
+import com.skillverse.userservice.dto.request.UpdateUserRequest;
 import com.skillverse.userservice.dto.response.UserResponseDTO;
+import com.skillverse.userservice.entity.HeaderConstants;
+import com.skillverse.userservice.entity.UserRequestContext;
+import com.skillverse.userservice.exception.UnauthorizedException;
 import com.skillverse.userservice.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 @RequestMapping("/users")
@@ -19,36 +23,69 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private static final Set<String> ALLOWED_INTERNAL = Set.of("gateway", "internal");
 
-    // 🔹 Get my profile
-    @PreAuthorize("isAuthenticated()")
     @GetMapping("/me")
-    public UserResponseDTO getMyProfile() {
-        log.info("UserController :: getMyProfile()");
-        return userService.getMyProfile();
+    public ResponseEntity<UserResponseDTO> getMyProfile(
+            @RequestHeader(HeaderConstants.USER_ID) Long userId,
+            @RequestHeader(HeaderConstants.USER_ROLE) String role,
+            @RequestHeader(HeaderConstants.INTERNAL_CALL) String internal) {
+
+        validateInternalCall(internal);
+
+        log.info("UserController :: getMyProfile userId={} role={}", userId, role);
+
+        UserRequestContext context = new UserRequestContext(userId, role);
+
+        return ResponseEntity.ok(userService.getMyProfile(context));
     }
 
-    // 🔹 Update my profile
-    @PreAuthorize("isAuthenticated()")
     @PutMapping("/me")
-    public UserResponseDTO updateMyProfile(@Valid @RequestBody UpdateProfileData data) {
-        log.info("UserController :: updateMyProfile()");
-        return userService.updateMyProfile(data);
+    public ResponseEntity<UserResponseDTO> updateMyProfile(
+            @RequestHeader(HeaderConstants.USER_ID) Long userId,
+            @RequestHeader(HeaderConstants.USER_ROLE) String role,
+            @RequestHeader(HeaderConstants.INTERNAL_CALL) String internal,
+            @Valid @RequestBody UpdateUserRequest request) {
+
+        validateInternalCall(internal);
+
+        log.info("UserController :: updateMyProfile userId={} role={}", userId, role);
+
+        UserRequestContext context = new UserRequestContext(userId, role);
+
+        return ResponseEntity.ok(userService.updateMyProfile(context, request));
     }
 
-    // 🔹 Delete my profile
-    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/me")
-    public void deleteMyProfile() {
-        log.info("UserController :: deleteMyProfile()");
-        userService.deleteMyProfile();
+    public ResponseEntity<Void> deleteMyProfile(
+            @RequestHeader(HeaderConstants.USER_ID) Long userId,
+            @RequestHeader(HeaderConstants.USER_ROLE) String role,
+            @RequestHeader(HeaderConstants.INTERNAL_CALL) String internal) {
+
+        validateInternalCall(internal);
+
+        log.info("UserController :: deleteMyProfile userId={} role={}", userId, role);
+
+        UserRequestContext context = new UserRequestContext(userId, role);
+
+        userService.deleteMyProfile(context);
+        return ResponseEntity.noContent().build();
     }
 
-    // 🔹 Change password
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/change-password")
-    public void changePassword(@Valid @RequestBody ChangePasswordRequest request) {
-        log.info("UserController :: changePassword()");
-        userService.changePassword(request);
+    private void validateInternalCall(String internal) {
+        if (!"gateway".equals(internal)) {
+            throw new UnauthorizedException("Unauthorized access");
+        }
+    }
+    @GetMapping("/internal/{userId}")
+    public ResponseEntity<UserResponseDTO> getUserInternal(
+            @PathVariable Long userId,
+            @RequestHeader(HeaderConstants.INTERNAL_CALL) String internal) {
+
+        if (!ALLOWED_INTERNAL.contains(internal)) {
+            throw new UnauthorizedException("Unauthorized");
+        }
+
+        return ResponseEntity.ok(userService.getUserById(userId));
     }
 }

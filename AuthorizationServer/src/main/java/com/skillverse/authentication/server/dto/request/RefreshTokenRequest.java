@@ -1,11 +1,12 @@
 package com.skillverse.authentication.server.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class RefreshTokenRequest {
-
+    @NotBlank
     private String refreshToken;
 }

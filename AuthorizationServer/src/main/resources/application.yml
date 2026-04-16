@@ -6,8 +6,9 @@ logging:
     org.springframework.security: DEBUG
 
 jwt:
-  secret: 8f7c9a1e2b3d4f5g6h7j8k9l0m1n2o3p
+  secret: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY3ODkwYWJjZA==
   expiration: 900000
+  refresh-expiration: 604800000
 
 spring:
   application:
@@ -26,3 +27,25 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+  instance:
+    prefer-ip-address: false
+    hostname: localhost
+
+# Kafka Config
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      acks: all
+      retries: 3
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    properties:
+      spring.json.add.type.headers: false

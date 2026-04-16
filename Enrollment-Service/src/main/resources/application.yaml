@@ -25,6 +25,17 @@ spring:
   config:
     import: optional:configserver:http://localhost:8085
 
+# Kafka config
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    properties:
+      spring.json.add.type.headers: false
+
 # Actuator Configuration
 management:
   endpoints:

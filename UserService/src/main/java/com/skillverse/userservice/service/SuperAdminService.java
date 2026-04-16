@@ -1,17 +1,16 @@
 package com.skillverse.userservice.service;
 
-import com.skillverse.userservice.dto.request.RegisterProfile;
+import com.skillverse.userservice.dto.request.CreateUserRequest;
 import com.skillverse.userservice.dto.response.UserResponseDTO;
+import com.skillverse.userservice.entity.UserRequestContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface SuperAdminService {
 
-    Page<UserResponseDTO> getAllUsers(Pageable pageable);
+    Page<UserResponseDTO> getAllUsers(UserRequestContext context, Pageable pageable);
 
-    void deleteUserByAdmin(Long userId);
+    void deleteUser(UserRequestContext context, Long userId);
 
-    UserResponseDTO createAdmin(RegisterProfile request);
-
-    void assignRole(Long userId, String role);
+    UserResponseDTO createAdmin(UserRequestContext context, CreateUserRequest request);
 }

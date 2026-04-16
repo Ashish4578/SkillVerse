@@ -2,6 +2,7 @@ package com.skillverse.authentication.server.service.impl;
 
 import com.skillverse.authentication.server.entity.RefreshToken;
 import com.skillverse.authentication.server.entity.User;
+import com.skillverse.authentication.server.exception.InvalidTokenException;
 import com.skillverse.authentication.server.repo.RefreshTokenRepository;
 import com.skillverse.authentication.server.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
@@ -38,10 +39,11 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     public RefreshToken verifyRefreshToken(String token) {
 
         RefreshToken refreshToken = refreshTokenRepository.findByToken(token)
-                .orElseThrow(() -> new RuntimeException("Invalid refresh token"));
+                .orElseThrow(() -> new InvalidTokenException("Invalid refresh token"));
 
         if (refreshToken.getExpiryDate().isBefore(Instant.now())) {
-            throw new RuntimeException("Refresh token expired");
+            refreshTokenRepository.delete(refreshToken);
+            throw new InvalidTokenException("Refresh token expired");
         }
 
         return refreshToken;

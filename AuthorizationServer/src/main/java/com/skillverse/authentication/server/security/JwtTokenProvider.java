@@ -3,16 +3,21 @@ package com.skillverse.authentication.server.security;
 import com.skillverse.authentication.server.entity.Permission;
 import com.skillverse.authentication.server.entity.Role;
 import com.skillverse.authentication.server.entity.User;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
@@ -24,13 +29,14 @@ public class JwtTokenProvider {
     private long expiration;
 
     private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
     }
 
     public String generateAccessToken(User user) {
 
         return Jwts.builder()
                 .setSubject(user.getUsername())
+                .claim("userId", user.getId()) // 🔥 IMPORTANT
                 .claim("roles", user.getRoles()
                         .stream()
                         .map(Role::getName)
@@ -47,16 +53,16 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String getUsername(String token) {
-        return getClaims(token).getSubject();
-    }
-
     public Claims getClaims(String token) {
-        return Jwts.parser()
+        return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public String getUsername(String token) {
+        return getClaims(token).getSubject();
     }
 
     public boolean validateToken(String token) {
@@ -64,6 +70,7 @@ public class JwtTokenProvider {
             getClaims(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
+            log.error("Invalid JWT token", e);
             return false;
         }
     }

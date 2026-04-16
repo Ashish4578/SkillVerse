@@ -3,38 +3,48 @@ package com.skillverse.ratingservice.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "rating")
-@Data
-@Builder
+@Table(name = "ratings", indexes = {
+        @Index(name = "idx_course_id", columnList = "courseId"),
+        @Index(name = "idx_user_id", columnList = "userId")
+})
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Rating {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long ratingId;
 
-    @NotNull
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<CourseDetails> courseDetails=new HashSet<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private Long createrId;
+    private Long userId;     // from Gateway
+    private Long courseId;   // from request
 
-    private Long courseId;
+    @Column(nullable = false)
+    private int rating; // 1 to 5
 
-	@Size(min = 1, message = "User must have at least one role")
-	@Enumerated(EnumType.STRING)
-	@NotNull
-	@ElementCollection(fetch = FetchType.EAGER)
-	private Set<RatingsRate> rate=new HashSet<>();
-	
-	
+    private String review; // optional
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

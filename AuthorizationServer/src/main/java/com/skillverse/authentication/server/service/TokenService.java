@@ -10,4 +10,6 @@ public interface TokenService {
     TokenResponse refreshToken(String refreshToken);
 
     boolean validateToken(String token);
+
+    void deleteRefreshToken(String token);
 }

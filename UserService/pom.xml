@@ -5,11 +5,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>net.ashish.dev</groupId>
-		<artifactId>SkillVerse</artifactId>
-		<version>1.0.0</version>
-	</parent>
+    <parent>
+        <groupId>net.ashish.dev</groupId>
+        <artifactId>SkillVerse-Services</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
 	<artifactId>UserService</artifactId>
 	<name>UserService</name>
@@ -33,10 +34,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
 
 		<!-- Persistence -->
 		<dependency>
@@ -115,6 +112,12 @@
 			<scope>test</scope>
 		</dependency>
 
+        <!-- ================= Kafka ================= -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
         <!-- MapStruct for DTO mapping -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -160,14 +163,14 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<annotationProcessorPaths>
-                        <!-- 🔹 MapStruct -->
+                        <!-- // UserRequestContext context = new UserRequestContext(userId, role); MapStruct -->
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
                             <version>1.5.5.Final</version>
                         </path>
 
-                        <!-- 🔹 Lombok -->
+                        <!-- // UserRequestContext context = new UserRequestContext(userId, role); Lombok -->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
