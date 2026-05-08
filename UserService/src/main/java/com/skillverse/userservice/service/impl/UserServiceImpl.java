@@ -2,6 +2,7 @@ package com.skillverse.userservice.service.impl;
 
 import com.skillverse.userservice.dto.request.UpdateUserRequest;
 import com.skillverse.userservice.dto.response.UserResponseDTO;
+import com.skillverse.userservice.entity.UserCreatedEvent;
 import com.skillverse.userservice.entity.UserProfile;
 import com.skillverse.userservice.entity.UserRequestContext;
 import com.skillverse.userservice.exception.DuplicateUserException;
@@ -44,6 +45,22 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         return userMapper.toDTO(user);
+    }
+
+    @Override
+    public String createUserFromAuthService(UserCreatedEvent userCreatedEvent) {
+        log.info("UserService :: createUserFromAuthService userCreatedEvent={}", userCreatedEvent);
+        UserProfile userProfile= UserProfile
+                .builder()
+                .createdAt(userCreatedEvent.getCreatedAt())
+                .contactNumber(userCreatedEvent.getContactNumber())
+                .email(userCreatedEvent.getEmail())
+                .enabled(userCreatedEvent.isEnabled())
+                .updatedAt(userCreatedEvent.getUpdatedAt())
+                .username(userCreatedEvent.getUsername())
+                .build();
+        userRepository.save(userProfile);
+        return "UserDetails created for userId=" + userCreatedEvent.getId();
     }
 
     @Transactional

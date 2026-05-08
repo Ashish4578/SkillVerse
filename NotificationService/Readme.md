@@ -9,3 +9,24 @@ Below cmd is used to build api
 mvn clean install 
 ````
 
+## Kafka Roles in Your System
+
+### Producers (send events)
+```
+Auth-Service → user-created
+Enrollment-Service → enrollment-events
+Rating-Service → rating-created
+```
+### Consumers (receive events)
+```
+User-Service ← user-created
+Notification-Service ← enrollment-events
+Course-Service ← rating-created
+```
+### Not using Kafka
+```
+API Gateway
+Eureka (Service Registry)
+Config Server
+```
+

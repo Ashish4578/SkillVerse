@@ -36,7 +36,7 @@ spring:
         - id: admin-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/skillverse/admins/**
+            - Path=/skillverse/admin/**
           filters:
             - StripPrefix=1
 
@@ -44,7 +44,7 @@ spring:
         - id: super-admin-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/skillverse/superadmin/**
+            - Path=/skillverse/super-admin/**
           filters:
             - StripPrefix=1
 

@@ -1,6 +1,5 @@
 package com.skillverse.authentication.server.service.impl;
 
-import com.skillverse.authentication.server.config.UserCreatedProducer;
 import com.skillverse.authentication.server.dto.request.LoginRequest;
 import com.skillverse.authentication.server.dto.request.RefreshTokenRequest;
 import com.skillverse.authentication.server.dto.request.RegisterRequest;
@@ -35,7 +34,6 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
     private final UserRepository userRepository;
-    private final UserCreatedProducer userCreatedProducer;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final ApplicationEventPublisher applicationEventPublisher;

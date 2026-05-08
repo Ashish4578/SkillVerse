@@ -85,7 +85,6 @@ public class UserController {
         if (!ALLOWED_INTERNAL.contains(internal)) {
             throw new UnauthorizedException("Unauthorized");
         }
-
         return ResponseEntity.ok(userService.getUserById(userId));
     }
 }

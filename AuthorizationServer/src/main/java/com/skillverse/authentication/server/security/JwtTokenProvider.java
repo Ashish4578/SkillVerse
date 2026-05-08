@@ -36,7 +36,7 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .setSubject(user.getUsername())
-                .claim("userId", user.getId()) // 🔥 IMPORTANT
+                .claim("userId", user.getId()) //
                 .claim("roles", user.getRoles()
                         .stream()
                         .map(Role::getName)

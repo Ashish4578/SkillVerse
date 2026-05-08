@@ -91,6 +91,7 @@ public class CourseServiceImpl implements CourseService {
         course.setTotalRatings(total + 1);
 
         courseRepository.save(course);
+
     }
 
     @Transactional

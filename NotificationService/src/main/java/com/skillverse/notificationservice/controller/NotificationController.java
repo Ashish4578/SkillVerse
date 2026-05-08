@@ -30,7 +30,7 @@ public class NotificationController {
         return ResponseEntity.ok(service.getUnreadCount(userId));
     }
 
-    @PutMapping("/{id}/read")
+    @PutMapping("/re")
     public ResponseEntity<Void> markAsRead(@PathVariable Long id) {
         service.markAsRead(id);
         return ResponseEntity.noContent().build();

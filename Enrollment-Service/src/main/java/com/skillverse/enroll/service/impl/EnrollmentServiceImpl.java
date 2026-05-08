@@ -2,7 +2,7 @@ package com.skillverse.enroll.service.impl;
 
 import com.skillverse.enroll.client.CourseServiceClient;
 import com.skillverse.enroll.client.UserServiceClient;
-import com.skillverse.enroll.config.EnrollmentEventProducer;
+import com.skillverse.enroll.config.MyKafkaProducer;
 import com.skillverse.enroll.dto.request.EnrollmentRequestDTO;
 import com.skillverse.enroll.dto.response.EnrollmentResponseDTO;
 import com.skillverse.enroll.exception.DuplicateUserException;
@@ -31,7 +31,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     private final EnrollmentMapper enrollmentMapper;
     private final UserServiceClient userClient;
     private final CourseServiceClient courseClient;
-    private final EnrollmentEventProducer producer;
+    private final MyKafkaProducer myKafkaProducer;
 
     //  Enroll in course
     @Override
@@ -61,11 +61,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                 .status(saved.getStatus().name())
                 .build();
 
-        try {
-            producer.publishEnrollmentEvent(event);
-        } catch (Exception ex) {
-            log.error("Kafka publish failed for enrollmentId={}", saved.getId(), ex);
-        }
+        myKafkaProducer.sendEnrollCourseNotificationToNotificationService(event);
+//        try {
+//
+//        } catch (Exception ex) {
+//            log.error("Kafka publish failed for enrollmentId={}", saved.getId(), ex);
+//        }
 
         return enrollmentMapper.toDTO(saved);
     }

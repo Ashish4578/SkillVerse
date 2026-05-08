@@ -1,12 +1,11 @@
 package com.skillverse.ratingservice.service.impl;
 
 import com.skillverse.ratingservice.client.CourseServiceClient;
-import com.skillverse.ratingservice.client.RatingEventProducer;
+import com.skillverse.ratingservice.config.MyKafkaProducer;
 import com.skillverse.ratingservice.dto.CourseRatingSummaryDTO;
 import com.skillverse.ratingservice.dto.request.RatingRequestDTO;
 import com.skillverse.ratingservice.dto.response.RatingResponseDTO;
 import com.skillverse.ratingservice.entity.Rating;
-import com.skillverse.ratingservice.entity.RatingCreatedDomainEvent;
 import com.skillverse.ratingservice.entity.RatingCreatedEvent;
 import com.skillverse.ratingservice.entity.UserRequestContext;
 import com.skillverse.ratingservice.exception.DuplicateUserException;
@@ -32,7 +31,7 @@ public class RatingServiceImpl implements RatingService {
     private final RatingMapper ratingMapper;
     private final CourseServiceClient courseClient;
     private final ApplicationEventPublisher applicationEventPublisher;
-
+    private final MyKafkaProducer myKafkaProducer;
     //  Rate course
     @Override
     public RatingResponseDTO rateCourse(UserRequestContext context,
@@ -71,10 +70,12 @@ public class RatingServiceImpl implements RatingService {
 
         Rating saved = ratingRepository.save(rating);
 
-        // Publish domain event
-        applicationEventPublisher.publishEvent(
-                new RatingCreatedDomainEvent(saved)
-        );
+        RatingCreatedEvent event = RatingCreatedEvent.builder()
+                .userId(userId)
+                .courseId(courseId)
+                .rating(request.getRating())
+                .build();
+        myKafkaProducer.sendUserDetailsToUserService(event);
 
         return ratingMapper.toDTO(saved);
     }
