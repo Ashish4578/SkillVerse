@@ -85,7 +85,7 @@ public class SuperAdminController {
     }
 
     private void validateSuperAdmin(String role) {
-        if (!"SUPERADMIN".equals(role)) {
+        if (!"ROLE_SUPERADMIN".equals(role)) {
             throw new UnauthorizedException("Only SUPERADMIN can access this resource");
         }
     }

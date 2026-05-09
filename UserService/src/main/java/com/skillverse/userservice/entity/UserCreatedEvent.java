@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Builder
 public class UserCreatedEvent {
 
-    private Long id;
     private String username;
     private String email;
     private String contactNumber;

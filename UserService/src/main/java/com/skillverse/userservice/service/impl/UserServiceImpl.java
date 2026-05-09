@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
                 .username(userCreatedEvent.getUsername())
                 .build();
         userRepository.save(userProfile);
-        return "UserDetails created for userId=" + userCreatedEvent.getId();
+        return "UserDetails created for userId=" + userCreatedEvent.getUsername();
     }
 
     @Transactional

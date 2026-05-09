@@ -27,13 +27,12 @@ public class AuthServerConsumerEvent {
         try {
 
             //  Idempotency check
-            if (userRepository.existsById(event.getId())) {
-                log.warn("User already exists id={}", event.getId());
+            if (userRepository.existsByUsername(event.getUsername())) {
+                log.warn("User already exists id={}", event.getUsername());
                 return;
             }
 
             UserProfile user = UserProfile.builder()
-                    .id(event.getId())
                     .username(event.getUsername())
                     .email(event.getEmail())
                     .contactNumber(event.getContactNumber())
@@ -44,10 +43,10 @@ public class AuthServerConsumerEvent {
 
             userRepository.save(user);
 
-            log.info(" User saved successfully id={}", user.getId());
+            log.info(" User saved successfully name={}", user.getUsername());
 
         } catch (Exception ex) {
-            log.error(" Failed to process user-created event id={}", event.getId(), ex);
+            log.error(" Failed to process user-created event username={}", event.getUsername(), ex);
 
             //  IMPORTANT: throw exception so Kafka retries
             throw ex;

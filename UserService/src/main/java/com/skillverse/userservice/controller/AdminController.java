@@ -66,7 +66,7 @@ public class AdminController {
     }
 
     private void validateAdmin(String role) {
-        if (!"ADMIN".equals(role)) {
+        if (!"ROLE_ADMIN".equals(role)) {
             throw new UnauthorizedException("Only ADMIN can access this resource");
         }
     }
