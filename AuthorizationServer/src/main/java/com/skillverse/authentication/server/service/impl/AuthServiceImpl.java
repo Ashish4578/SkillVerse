@@ -1,12 +1,13 @@
 package com.skillverse.authentication.server.service.impl;
 
+import com.skillverse.authentication.server.config.MyKafkaProducer;
 import com.skillverse.authentication.server.dto.request.LoginRequest;
 import com.skillverse.authentication.server.dto.request.RefreshTokenRequest;
 import com.skillverse.authentication.server.dto.request.RegisterRequest;
 import com.skillverse.authentication.server.dto.response.TokenResponse;
 import com.skillverse.authentication.server.entity.Role;
 import com.skillverse.authentication.server.entity.User;
-import com.skillverse.authentication.server.entity.UserCreatedDomainEvent;
+import com.skillverse.authentication.server.entity.UserCreatedEvent;
 import com.skillverse.authentication.server.repo.RoleRepository;
 import com.skillverse.authentication.server.repo.UserRepository;
 import com.skillverse.authentication.server.security.CustomUserDetails;
@@ -16,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.errors.DuplicateResourceException;
 import org.apache.kafka.common.errors.ResourceNotFoundException;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Service
@@ -36,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ApplicationEventPublisher applicationEventPublisher;
+    private final MyKafkaProducer myKafkaProducer;
 
     @Override
     public TokenResponse login(LoginRequest request) {
@@ -99,11 +100,17 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         User savedUser = userRepository.save(user);
-
+        UserCreatedEvent userCreatedEvent= UserCreatedEvent
+                .builder()
+                .username(request.getUsername())
+                .email(request.getEmail())
+                .contactNumber(null)
+                .enabled(true)
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
+        myKafkaProducer.sendUserDetailsToUserService(userCreatedEvent);
         log.info("User created successfully id={}", savedUser.getId());
-
-        //  Publish event AFTER DB save
-        applicationEventPublisher.publishEvent(new UserCreatedDomainEvent(savedUser));
     }
 
 }
