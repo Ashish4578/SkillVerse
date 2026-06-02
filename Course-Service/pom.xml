@@ -87,6 +87,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Object storing purpose-->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.5.12</version>
+        </dependency>
+
         <!-- Developer Tools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

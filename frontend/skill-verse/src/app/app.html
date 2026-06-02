@@ -1,17 +1,25 @@
-<ul>
-  <li (click)="showSignup()">Sign up</li>
-  <li (click)="showRegister()">Register</li>
-  <li (click)="showProfile()">Profile</li>
-</ul>
+<nav class="navbar">
+  <div class="logo">
+    <a routerLink="/">SkillVerse</a>
+  </div>
 
-@if (view === 'signup') {
-<app-sign-up></app-sign-up>
-} @else if (view === 'register') {
-<app-register></app-register>
-}
-@else if (view === 'profile') {
-<app-profile-page></app-profile-page>
-}
-<div class="public-content">
-  <app-public-content></app-public-content>
-</div>
+  <div class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/login" routerLinkActive="active">Login</a>
+    <a routerLink="/register" routerLinkActive="active">Register</a>
+  </div>
+</nav>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>© 2026 SkillVerse. All rights reserved.</p>
+    
+    <div class="footer-links">
+      <a routerLink="/contact-us">Contact Us</a>
+    </div>
+  </div>
+</footer>

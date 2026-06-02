@@ -22,11 +22,12 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USERNAME:your-email@gmail.com}
-    password: ${MAIL_PASSWORD:your-app-password}
+    username: ashishgadekara1541@gmail.com
+    password: hfbo hrcx dqxb lsju
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
 
   # Database Configuration
   datasource:

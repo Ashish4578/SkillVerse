@@ -53,6 +53,12 @@ public class CourseController {
         return ResponseEntity.ok(courseService.getCourseById(courseId));
     }
 
+    @GetMapping("/course-progress/{courseId}")
+    public ResponseEntity<Double> getCourseProgress(@PathVariable Long courseId) {
+        log.info("CourseController :: getCourseProgress courseId={}", courseId);
+        return ResponseEntity.ok(courseService.getCourseProgress(courseId));
+    }
+
     @PostMapping
     public ResponseEntity<CourseDetailsResponseDTO> createCourse(
             @RequestHeader(HeaderConstants.USER_ID) Long userId,

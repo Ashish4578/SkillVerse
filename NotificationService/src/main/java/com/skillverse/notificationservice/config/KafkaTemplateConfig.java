@@ -1,6 +1,7 @@
 package com.skillverse.notificationservice.config;
 
 import com.skillverse.notificationservice.model.EnrollmentEvent;
+import com.skillverse.notificationservice.model.UserCreatedEvent;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
@@ -27,12 +28,30 @@ public class KafkaTemplateConfig {
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(),
                 new JsonDeserializer<>(EnrollmentEvent.class));
     }
+    @Bean
+    public ConsumerFactory<String, UserCreatedEvent> userCreatedByAuthConsumerFactory() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+
+        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(),
+                new JsonDeserializer<>(UserCreatedEvent.class));
+    }
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, EnrollmentEvent> userCreatedByAuthKafkaListenerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, EnrollmentEvent> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(userEnrolledCourseConsumerFactory());
+        return factory;
+    }
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, UserCreatedEvent> intialAccountCreatedByAuthKafkaListenerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, UserCreatedEvent> factory =
+                new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(userCreatedByAuthConsumerFactory());
         return factory;
     }
 

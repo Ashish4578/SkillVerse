@@ -1,13 +1,10 @@
 server:
   port: 8084
-
 spring:
   application:
     name: COURSE-SERVICE
-
   config:
     import: optional:configserver:http://localhost:8085
-
   datasource:
     url: jdbc:mysql://localhost:3306/skillverse_course_data
     username: root
@@ -16,7 +13,6 @@ spring:
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -30,25 +26,24 @@ spring:
       pageable:
         max-page-size: 50
         default-page-size: 10
-
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+  # Kafka config
+  kafka:
+    bootstrap-servers: localhost:9092
 management:
   endpoints:
     web:
       exposure:
         include: "*"
-# Kafka config
-  kafka:
-    bootstrap-servers: localhost:9092
+minio:
+  url: http://localhost:9000
+  access-key: admin
+  secret-key: admin123
+  bucket-name: skillverse
 
-    consumer:
-      group-id: course-group
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-
-      properties:
-        spring.json.trusted.packages: "*"
-        spring.json.value.default.type: com.skillverse.courseservice.event.RatingCreatedEvent
 eureka:
   client:
     register-with-eureka: true

@@ -1,30 +1,13 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
-import { PublicContent } from "./components/public-content/public-content";
-import { Register } from "./components/register/register";
-import { SignUp } from "./components/sign-up/sign-up";
-import { ProfilePage } from './components/profile-page/profile-page';
-
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [PublicContent, Register, SignUp, ProfilePage],
+  standalone: true,
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('skill-verse');
-  view: 'home' | 'signup' | 'register' | 'profile' = 'home';
-
-  showSignup() {
-    this.view = 'signup';
-  }
-
-  showRegister() {
-    this.view = 'register';
-  }
-  showProfile() {
-    this.view = 'profile';
-  }
+  app_title = 'Boom';
 }
-

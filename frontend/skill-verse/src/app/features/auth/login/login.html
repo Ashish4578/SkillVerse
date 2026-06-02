@@ -1,0 +1,85 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login to SkillVerse</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="Enter your username"
+        />
+
+        @if (loginForm.get('username')?.touched &&
+             loginForm.get('username')?.invalid) {
+          <small class="error-text">
+            Username is required
+          </small>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+
+        @if (loginForm.get('password')?.touched &&
+             loginForm.get('password')?.invalid) {
+          <small class="error-text">
+            Password must be at least 4 characters
+          </small>
+        }
+      </div>
+
+      <!-- API Error -->
+      @if (errorMessage) {
+        <div class="error-message">
+          {{ errorMessage }}
+        </div>
+      }
+
+      <!-- Success Token Display -->
+      @if (loginSuccess) {
+        <div class="success-message">
+          <h3>Login Successful!</h3>
+
+          <p><strong>Access Token:</strong></p>
+          <textarea readonly>{{ authResponse?.accessToken }}</textarea>
+
+          <p><strong>Refresh Token:</strong></p>
+          <textarea readonly>{{ authResponse?.refreshToken }}</textarea>
+
+          <p><strong>Token Type:</strong> {{ authResponse?.tokenType }}</p>
+          <p><strong>Expires In:</strong> {{ authResponse?.expiresIn }} ms</p>
+        </div>
+      }
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        [disabled]="loading"
+      >
+        @if (!loading) {
+          Login
+        } @else {
+          Logging in...
+        }
+      </button>
+    </form>
+
+    <!-- Register Redirect -->
+    <p class="register-link">
+      Don’t have an account?
+      <a routerLink="/register">Register here</a>
+    </p>
+  </div>
+</div>

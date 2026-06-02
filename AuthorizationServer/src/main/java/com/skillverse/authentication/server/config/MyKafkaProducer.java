@@ -17,5 +17,6 @@ public class MyKafkaProducer {
     public void sendUserDetailsToUserService(UserCreatedEvent userCreatedEvent) {
         System.out.println("Sending message to Consumer " + userCreatedEvent);
         kafkaTemplate.send("user-notify-topic", userCreatedEvent);
+        kafkaTemplate.send("user-notify-email-topic", userCreatedEvent);
     }
 }

@@ -29,21 +29,7 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/skillverse/users/**
-          filters:
-            - StripPrefix=1
-
-        #  ADMIN ROUTES (same service)
-        - id: admin-service
-          uri: lb://USER-SERVICE
-          predicates:
             - Path=/skillverse/admin/**
-          filters:
-            - StripPrefix=1
-
-        #  SUPER ADMIN ROUTES
-        - id: super-admin-service
-          uri: lb://USER-SERVICE
-          predicates:
             - Path=/skillverse/super-admin/**
           filters:
             - StripPrefix=1

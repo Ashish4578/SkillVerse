@@ -1,0 +1,57 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 80vh;
+  background-color: #181818;
+  padding: 40px 20px;
+}
+
+.profile-card {
+  background-color: #242424;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 600px;
+  color: white;
+}
+
+.profile-card h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.profile-field {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #333;
+}
+
+.profile-field label {
+  font-weight: bold;
+  color: #00c853;
+}
+
+.profile-field span {
+  text-align: right;
+  max-width: 60%;
+  word-break: break-word;
+}
+
+.loading-message {
+  text-align: center;
+  font-size: 18px;
+  color: #00c853;
+}
+
+.error-message {
+  background-color: rgba(255, 82, 82, 0.1);
+  color: #ff5252;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 20px;
+}

@@ -48,7 +48,6 @@ public class EnrollmentController {
             @RequestHeader(HeaderConstants.USER_ROLE) @NotBlank String role,
             @RequestHeader(HeaderConstants.INTERNAL_CALL) @NotBlank String internal,
             @Valid @RequestBody EnrollmentRequestDTO request) {
-
         log.info("EnrollmentController :: enroll userId={} courseId={}", userId, request.getCourseId());
 
         UserRequestContext context = buildContext(userId, role, internal);

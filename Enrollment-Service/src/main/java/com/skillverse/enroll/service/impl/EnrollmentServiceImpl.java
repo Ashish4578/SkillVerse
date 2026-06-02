@@ -4,7 +4,9 @@ import com.skillverse.enroll.client.CourseServiceClient;
 import com.skillverse.enroll.client.UserServiceClient;
 import com.skillverse.enroll.config.MyKafkaProducer;
 import com.skillverse.enroll.dto.request.EnrollmentRequestDTO;
+import com.skillverse.enroll.model.CourseInfo;
 import com.skillverse.enroll.dto.response.EnrollmentResponseDTO;
+import com.skillverse.enroll.model.UserInfo;
 import com.skillverse.enroll.exception.DuplicateUserException;
 import com.skillverse.enroll.exception.ResourceNotFoundException;
 import com.skillverse.enroll.exception.UnauthorizedException;
@@ -53,21 +55,17 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         enrollment.setUserId(userId);
 
         Enrollment saved = enrollmentRepository.save(enrollment);
-
+        UserInfo userInfo = userClient.getUserById(userId, "internal");
+        CourseInfo courseInfo = courseClient.getCourseById(courseId, "internal");
         // Kafka event
         EnrollmentEvent event = EnrollmentEvent.builder()
-                .userId(saved.getUserId())
-                .courseId(saved.getCourseId())
+                .user(userInfo)
+                .message("Course Enrollment Successful 🎉")
+                .course(courseInfo)
                 .status(saved.getStatus().name())
                 .build();
 
         myKafkaProducer.sendEnrollCourseNotificationToNotificationService(event);
-//        try {
-//
-//        } catch (Exception ex) {
-//            log.error("Kafka publish failed for enrollmentId={}", saved.getId(), ex);
-//        }
-
         return enrollmentMapper.toDTO(saved);
     }
 

@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class EnrollmentEvent {
 
-    private Long userId;
-    private Long courseId;
+    private UserInfo user;
+    private String message;
+    private CourseInfo course;
     private String status;
 }

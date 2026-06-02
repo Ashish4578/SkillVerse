@@ -1,0 +1,58 @@
+<div class="profile-container">
+  <div class="profile-card">
+
+    <!-- Loading -->
+    @if (loading) {
+      <div class="loading-message">
+        Loading profile...
+      </div>
+    }
+
+    <!-- Error -->
+    @if (errorMessage) {
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+    }
+
+    <!-- Profile Data -->
+    @if (userProfile && !loading) {
+      <h2>User Profile</h2>
+
+      <div class="profile-field">
+        <label>User ID:</label>
+        <span>{{ userProfile.id }}</span>
+      </div>
+
+      <div class="profile-field">
+        <label>Username:</label>
+        <span>{{ userProfile.username }}</span>
+      </div>
+
+      <div class="profile-field">
+        <label>Email:</label>
+        <span>{{ userProfile.email }}</span>
+      </div>
+
+      <div class="profile-field">
+        <label>Full Name:</label>
+        <span>{{ userProfile.fullName }}</span>
+      </div>
+
+      <div class="profile-field">
+        <label>Bio:</label>
+        <span>{{ userProfile.bio || 'N/A' }}</span>
+      </div>
+
+      <div class="profile-field">
+        <label>Role:</label>
+        <span>{{ userProfile.role }}</span>
+      </div>
+
+      <div class="profile-field">
+        <label>Created At:</label>
+        <span>{{ userProfile.createdAt }}</span>
+      </div>
+    }
+  </div>
+</div>

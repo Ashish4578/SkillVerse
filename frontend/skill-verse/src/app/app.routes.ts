@@ -1,13 +1,30 @@
 import { Routes } from '@angular/router';
-import { PublicContent } from './components/public-content/public-content';
-import { SignUp } from './components/sign-up/sign-up';
-import { Register } from './components/register/register';
-import { ProfilePage } from './components/profile-page/profile-page';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
-
-  { path: '', component: PublicContent },
-  { path: 'signup', component: SignUp },
-  { path: 'register', component: Register },
-  { path: 'profile', component: ProfilePage }
+  {
+    path: '',
+    loadComponent: () =>
+      import('./features/home/home').then(m => m.Home)
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/auth/login/login').then(m => m.Login)
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./features/auth/register/register').then(m => m.Register)
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./features/user/profile/profile').then(m => m.Profile),
+    canActivate: [authGuard]
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];

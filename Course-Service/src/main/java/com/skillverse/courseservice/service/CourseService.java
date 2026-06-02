@@ -10,6 +10,8 @@ public interface CourseService {
 
     CourseDetailsResponseDTO getCourseById(Long courseId);
 
+    Double getCourseProgress(Long courseId);
+
     Page<CourseDetailsResponseDTO> getAllCourses(Pageable pageable);
 
     CourseDetailsResponseDTO createCourse(UserRequestContext context, CourseDetailsRequestDTO request);
