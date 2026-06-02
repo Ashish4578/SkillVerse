@@ -1,6 +1,6 @@
 package com.skillverse.courseservice.service.impl;
 
-import com.skillverse.courseservice.DTO.response.FileUploadResponseDTO;
+import com.skillverse.courseservice.dto.response.FileUploadResponseDTO;
 import com.skillverse.courseservice.service.MinioService;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;

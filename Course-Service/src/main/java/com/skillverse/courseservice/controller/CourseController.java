@@ -1,7 +1,7 @@
 package com.skillverse.courseservice.controller;
 
-import com.skillverse.courseservice.DTO.request.CourseDetailsRequestDTO;
-import com.skillverse.courseservice.DTO.response.CourseDetailsResponseDTO;
+import com.skillverse.courseservice.dto.request.CourseDetailsRequestDTO;
+import com.skillverse.courseservice.dto.response.CourseDetailsResponseDTO;
 import com.skillverse.courseservice.execption.UnauthorizedException;
 import com.skillverse.courseservice.model.HeaderConstants;
 import com.skillverse.courseservice.model.UserRequestContext;
@@ -51,12 +51,6 @@ public class CourseController {
 
         log.info("CourseController :: getCourseById courseId={}", courseId);
         return ResponseEntity.ok(courseService.getCourseById(courseId));
-    }
-
-    @GetMapping("/course-progress/{courseId}")
-    public ResponseEntity<Double> getCourseProgress(@PathVariable Long courseId) {
-        log.info("CourseController :: getCourseProgress courseId={}", courseId);
-        return ResponseEntity.ok(courseService.getCourseProgress(courseId));
     }
 
     @PostMapping

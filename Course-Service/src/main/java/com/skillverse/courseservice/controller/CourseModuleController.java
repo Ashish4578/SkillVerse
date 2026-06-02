@@ -1,7 +1,7 @@
 package com.skillverse.courseservice.controller;
 
-import com.skillverse.courseservice.DTO.request.CourseModuleRequestDTO;
-import com.skillverse.courseservice.DTO.response.CourseModuleResponseDTO;
+import com.skillverse.courseservice.dto.request.CourseModuleRequestDTO;
+import com.skillverse.courseservice.dto.response.CourseModuleResponseDTO;
 import com.skillverse.courseservice.execption.UnauthorizedException;
 import com.skillverse.courseservice.model.HeaderConstants;
 import com.skillverse.courseservice.model.UserRequestContext;

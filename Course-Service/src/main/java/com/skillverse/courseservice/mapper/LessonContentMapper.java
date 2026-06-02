@@ -1,7 +1,7 @@
 package com.skillverse.courseservice.mapper;
 
-import com.skillverse.courseservice.DTO.request.LessonContentRequestDTO;
-import com.skillverse.courseservice.DTO.response.LessonContentResponseDTO;
+import com.skillverse.courseservice.dto.request.LessonContentRequestDTO;
+import com.skillverse.courseservice.dto.response.LessonContentResponseDTO;
 import com.skillverse.courseservice.model.LessonContent;
 import org.mapstruct.*;
 

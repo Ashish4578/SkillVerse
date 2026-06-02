@@ -1,8 +1,7 @@
 package com.skillverse.courseservice.service.impl;
 
-import com.skillverse.courseservice.DTO.request.CourseDetailsRequestDTO;
-import com.skillverse.courseservice.DTO.response.CourseDetailsResponseDTO;
-import com.skillverse.courseservice.DTO.response.CourseProgressResponseDTO;
+import com.skillverse.courseservice.dto.request.CourseDetailsRequestDTO;
+import com.skillverse.courseservice.dto.response.CourseDetailsResponseDTO;
 import com.skillverse.courseservice.execption.ResourceNotFoundException;
 import com.skillverse.courseservice.execption.UnauthorizedException;
 import com.skillverse.courseservice.mapper.CourseMapper;
@@ -31,15 +30,6 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseDetailsResponseDTO getCourseById(Long courseId) {
         return courseMapper.toDTO(getCourseOrThrow(courseId));
-    }
-
-    @Override
-    public Double getCourseProgress(Long courseId) {
-        log.info("Retrieving Course Progress :: Service");
-
-        CourseProgressResponseDTO courseProgress= courseRepository.getCourseProgress(courseId);
-
-        return 0.0;
     }
 
     @Transactional(readOnly = true)

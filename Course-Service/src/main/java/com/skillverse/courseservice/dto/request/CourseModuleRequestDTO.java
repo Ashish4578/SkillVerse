@@ -1,4 +1,4 @@
-package com.skillverse.courseservice.DTO.request;
+package com.skillverse.courseservice.dto.request;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

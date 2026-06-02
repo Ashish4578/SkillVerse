@@ -20,7 +20,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"dehadray-creator\",\n  \"email\": \"dehadray@creator.com\",\n  \"password\": \"12345\",\n  \"role\": \"ROLE_CREATOR\"\n}",
+              "raw": "{\n  \"username\": \"shubham-student\",\n  \"email\": \"shubhamkatewad55@gmail.com\",\n  \"password\": \"1234\",\n  \"role\": \"ROLE_STUDENT\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -53,7 +53,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"username\" : \"ashish-admin\",\n    \"password\" : \"12345\"\n}",
+              "raw": "{\n    \"username\" : \"ashish-creator\",\n    \"password\" : \"12345\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -86,7 +86,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"refreshToken\" : \"garib-bachha-student\"\n}",
+              "raw": "{\n    \"refreshToken\" : \"6ee26569-fbc8-49d5-a914-b70a812f6d3b\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -119,7 +119,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"refreshToken\" : \"garib-bachha-student\"\n}",
+              "raw": "{\n    \"refreshToken\" : \"ashish-student\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -148,6 +148,616 @@
       "name": "CourseService",
       "item": [
         {
+          "name": "CourseModule",
+          "item": [
+            {
+              "name": "createModule",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODAyNTU2MzEsImV4cCI6MTc4MDI1NjUzMX0.VKyQYl1aNyo7MwXKC_aq4cffK6Lm8sOlcpUK5SpC8sw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": " application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"moduleName\": \"What is Kafka\",\n  \"sequenceNumber\": \"2\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/1/modules",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "1",
+                    "modules"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Module by Id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODAyNTU2MzEsImV4cCI6MTc4MDI1NjUzMX0.VKyQYl1aNyo7MwXKC_aq4cffK6Lm8sOlcpUK5SpC8sw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/1/modules",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "1",
+                    "modules"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Module by Id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODAyNTU2MzEsImV4cCI6MTc4MDI1NjUzMX0.VKyQYl1aNyo7MwXKC_aq4cffK6Lm8sOlcpUK5SpC8sw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"moduleName\": \"Why Kafka?\",\n  \"sequenceNumber\": \"2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/modules/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "modules",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Module by Id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODAyNTU2MzEsImV4cCI6MTc4MDI1NjUzMX0.VKyQYl1aNyo7MwXKC_aq4cffK6Lm8sOlcpUK5SpC8sw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/modules/2",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "modules",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Lesson",
+          "item": [
+            {
+              "name": "createLesson",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9QUk9GSUxFIiwiQ1JFQVRFX1VTRVIiLCJVUERBVEVfVVNFUiJdLCJpYXQiOjE3ODAyNTcwNzksImV4cCI6MTc4MDI1Nzk3OX0.HgTLtwy7WLldzLU_TQ3vTgcwH-UAtsjHPD3PD2pA-eE",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lessonTitle\": \"Sync vs Async\",\n  \"sequenceNumber\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/modules/1/lessons",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "modules",
+                    "1",
+                    "lessons"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Lesson By Module",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtc3R1ZGVudCIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9TVFVERU5UIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9QUk9GSUxFIl0sImlhdCI6MTc4MDQyNzEzNSwiZXhwIjoxNzgwNDI4MDM1fQ.Mb1WXUUFGqFsBJ0-nnMU8PcYqiQ-1W_FkUqZ4mjer_w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/modules/1/lessons",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "modules",
+                    "1",
+                    "lessons"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Lesson By Lesson Id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODAyNTU2MzEsImV4cCI6MTc4MDI1NjUzMX0.VKyQYl1aNyo7MwXKC_aq4cffK6Lm8sOlcpUK5SpC8sw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"lessonTitle\":\"Kafka Intro\",\n    \"sequenceNumber\":1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/lessons/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "lessons",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Lesson By Lesson Id",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODAyNTU2MzEsImV4cCI6MTc4MDI1NjUzMX0.VKyQYl1aNyo7MwXKC_aq4cffK6Lm8sOlcpUK5SpC8sw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/lessons/2",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "lessons",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "LessonContent",
+          "item": [
+            {
+              "name": "Create LessonContent",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODAyNTY2MTUsImV4cCI6MTc4MDI1NzUxNX0.OiK8_rGnHPKNtMpoDPVSFrsojoeAMHLlD_tGMyMfETg",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contentType\": \"TEXT\",\n  \"contentUrl\" : \"Some Url 2\",\n  \"textContent\": \"Kafka is a distributed event streaming platform. 2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/lessons/3/contents",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "lessons",
+                    "3",
+                    "contents"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update LessonContent",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODAyNTY2MTUsImV4cCI6MTc4MDI1NzUxNX0.OiK8_rGnHPKNtMpoDPVSFrsojoeAMHLlD_tGMyMfETg",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contentType\": \"TEXT\",\n  \"contentUrl\" : \"Updated Some Url\",\n  \"textContent\": \"Kafka is a distributed event streaming platform.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/contents/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "contents",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete LessonContent",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODAyNTY2MTUsImV4cCI6MTc4MDI1NzUxNX0.OiK8_rGnHPKNtMpoDPVSFrsojoeAMHLlD_tGMyMfETg",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/contents/3",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "contents",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get LessonContent",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODAyNTY2MTUsImV4cCI6MTc4MDI1NzUxNX0.OiK8_rGnHPKNtMpoDPVSFrsojoeAMHLlD_tGMyMfETg",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/lessons/1/contents",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "lessons",
+                    "1",
+                    "contents"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "CourseMaterial",
+          "item": [
+            {
+              "name": "Upload Course File",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIkNSRUFURV9VU0VSIiwiVVBEQVRFX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODA0MjgxMjAsImV4cCI6MTc4MDQyOTAyMH0.55d6a9ox0x31BgM8GOaLh1rZqypn8k1cZs7ZI2CalnQ",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "uuid": "fd41976e-e796-42be-b80f-7dab77d03a14",
+                      "src": "/Users/ashish/Downloads/Gemini_Generated_Image_ybrtopybrtopybrt.png"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/files/upload",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "files",
+                    "upload"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "CourseProgress",
+          "item": [
+            {
+              "name": "Complete Lesson",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtc3R1ZGVudCIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9TVFVERU5UIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9QUk9GSUxFIl0sImlhdCI6MTc4MDQyNzEzNSwiZXhwIjoxNzgwNDI4MDM1fQ.Mb1WXUUFGqFsBJ0-nnMU8PcYqiQ-1W_FkUqZ4mjer_w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/progress/lessons/1/complete",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "progress",
+                    "lessons",
+                    "1",
+                    "complete"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Course Progress",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtc3R1ZGVudCIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9TVFVERU5UIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9QUk9GSUxFIl0sImlhdCI6MTc4MDQyNzEzNSwiZXhwIjoxNzgwNDI4MDM1fQ.Mb1WXUUFGqFsBJ0-nnMU8PcYqiQ-1W_FkUqZ4mjer_w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Module Progress",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtc3R1ZGVudCIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9TVFVERU5UIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9QUk9GSUxFIl0sImlhdCI6MTc4MDQyNzEzNSwiZXhwIjoxNzgwNDI4MDM1fQ.Mb1WXUUFGqFsBJ0-nnMU8PcYqiQ-1W_FkUqZ4mjer_w",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8088/skillverse/courses/progress/1/modules/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8088",
+                  "path": [
+                    "skillverse",
+                    "courses",
+                    "progress",
+                    "1",
+                    "modules",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "Create Course",
           "request": {
             "auth": {
@@ -155,7 +765,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXJpYi1jcmVhdG9yIiwidXNlcklkIjoxNCwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiUkVBRF9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3NzcyMjA0NjUsImV4cCI6MTc3NzIyMTM2NX0.MVCSzlBrnIyIEnXMuqrUwN4fpz9LoBl0eIfTgAx-xYI",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIkNSRUFURV9VU0VSIiwiVVBEQVRFX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODA0MjgxMjAsImV4cCI6MTc4MDQyOTAyMH0.55d6a9ox0x31BgM8GOaLh1rZqypn8k1cZs7ZI2CalnQ",
                   "type": "string"
                 }
               ]
@@ -164,7 +774,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"courseName\": \"Monitoring & Observability\",\n  \"courseDescription\": \"Implement logging, tracing, and metrics using Prometheus, Grafana, and OpenTelemetry\",\n  \"courseInstructor\": \"dehadray-creator\",\n  \"coursePrice\": 3899,\n  \"courseDuration\": \"4 weeks\",\n  \"courseTime\": \"Evening\"\n}",
+              "raw": "{\n  \"courseName\": \"Kafka Masterclass\",\n  \"courseDescription\": \"Learn Kafka\",\n  \"courseInstructor\": \"Ashish Gadekar\",\n  \"courseTime\": \"10 Hours\",\n  \"coursePrice\": 499,\n  \"thumbnailUrl\": \"http://localhost:9000/skillverse/710bdf27-2571-4ce6-8214-910313327057-Gemini_Generated_Image_ybrtopybrtopybrt.png\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -233,7 +843,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZWhhZHJheS1jcmVhdG9yIiwidXNlcklkIjoxMywicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiVVBEQVRFX1BST0ZJTEUiLCJSRUFEX1VTRVIiLCJDUkVBVEVfVVNFUiJdLCJpYXQiOjE3NzcyMjA0NDIsImV4cCI6MTc3NzIyMTM0Mn0.ndfwcd7lF0eATM6_0vkAphIuJagxgrtzNK9ihaYMJoU",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIkNSRUFURV9VU0VSIiwiVVBEQVRFX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODA0MjgxMjAsImV4cCI6MTc4MDQyOTAyMH0.55d6a9ox0x31BgM8GOaLh1rZqypn8k1cZs7ZI2CalnQ",
                   "type": "string"
                 }
               ]
@@ -263,7 +873,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZWhhZHJheS1jcmVhdG9yIiwidXNlcklkIjoxMywicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9VU0VSIiwiVVBEQVRFX1BST0ZJTEUiLCJSRUFEX1VTRVIiLCJDUkVBVEVfVVNFUiJdLCJpYXQiOjE3NzcyMjA0NDIsImV4cCI6MTc3NzIyMTM0Mn0.ndfwcd7lF0eATM6_0vkAphIuJagxgrtzNK9ihaYMJoU",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9VU0VSIiwiQ1JFQVRFX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODAyNTMwNDgsImV4cCI6MTc4MDI1Mzk0OH0.lPgCAgI_wmLIA14tAGqlxppXZPe3TXLXW7CAYnVymJk",
                   "type": "string"
                 }
               ]
@@ -271,7 +881,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8088/skillverse/courses/17",
+              "raw": "http://localhost:8088/skillverse/courses/1",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -280,7 +890,7 @@
               "path": [
                 "skillverse",
                 "courses",
-                "17"
+                "1"
               ]
             }
           },
@@ -294,7 +904,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtc3R1ZGVudCIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9TVFVERU5UIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9QUk9GSUxFIl0sImlhdCI6MTc3NzIyMTQxNywiZXhwIjoxNzc3MjIyMzE3fQ.XqPAbsGtrEW7y_W6JjjNIM51vj8JN1fDPs19fXcf_50",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtY3JlYXRvciIsInVzZXJJZCI6Miwicm9sZXMiOlsiUk9MRV9DUkVBVE9SIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIkNSRUFURV9VU0VSIiwiVVBEQVRFX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3ODA0MjgxMjAsImV4cCI6MTc4MDQyOTAyMH0.55d6a9ox0x31BgM8GOaLh1rZqypn8k1cZs7ZI2CalnQ",
                   "type": "string"
                 }
               ]
@@ -302,7 +912,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8088/skillverse/courses/search?keyword=for&page=1&size=5",
+              "raw": "http://localhost:8088/skillverse/courses/search?keyword=ashish Gadekar&page=1&size=5",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -316,7 +926,7 @@
               "query": [
                 {
                   "key": "keyword",
-                  "value": "for"
+                  "value": "ashish Gadekar"
                 },
                 {
                   "key": "page",
@@ -546,7 +1156,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtc3R1ZGVudCIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9TVFVERU5UIl0sInBlcm1pc3Npb25zIjpbIlVQREFURV9QUk9GSUxFIiwiUkVBRF9VU0VSIl0sImlhdCI6MTc3NzIxOTg5MSwiZXhwIjoxNzc3MjIwNzkxfQ.Tx8UaeEYChkKZvBtCocTg8CnbpG-9Lh7QaI0Vm0CMuk",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtc3R1ZGVudCIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9TVFVERU5UIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9QUk9GSUxFIl0sImlhdCI6MTc3ODUxOTcxMCwiZXhwIjoxNzc4NTIwNjEwfQ.HRfateH4h7mEBVRdPWmR8djpF4_RyHaGsItQdQQePGo",
                   "type": "string"
                 }
               ]
@@ -974,7 +1584,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXJpYi1iYWNoaGEtc3R1ZGVudCIsInVzZXJJZCI6MTksInJvbGVzIjpbIlJPTEVfU1RVREVOVCJdLCJwZXJtaXNzaW9ucyI6WyJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3NzcyMTY3NDgsImV4cCI6MTc3NzIxNzY0OH0.2m9STGXhezloz7pf95tFFC6795S2gjdj3KWrz606xas",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXJpYi1zdHVkZW50IiwidXNlcklkIjoxMiwicm9sZXMiOlsiUk9MRV9TVFVERU5UIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9QUk9GSUxFIl0sImlhdCI6MTc3OTk5MjI0NywiZXhwIjoxNzc5OTkzMTQ3fQ.FmQL8VmxqhYkHLhqcbmeC6MSFUF6D98_Yr1hPtyguwY",
                   "type": "string"
                 }
               ]
@@ -1018,7 +1628,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXJpYi1iYWNoaGEtc3R1ZGVudCIsInVzZXJJZCI6MTksInJvbGVzIjpbIlJPTEVfU1RVREVOVCJdLCJwZXJtaXNzaW9ucyI6WyJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3NzcyMTY3NDgsImV4cCI6MTc3NzIxNzY0OH0.2m9STGXhezloz7pf95tFFC6795S2gjdj3KWrz606xas",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXJpYi1zdHVkZW50IiwidXNlcklkIjoxMiwicm9sZXMiOlsiUk9MRV9TVFVERU5UIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9QUk9GSUxFIl0sImlhdCI6MTc3OTk5MjI0NywiZXhwIjoxNzc5OTkzMTQ3fQ.FmQL8VmxqhYkHLhqcbmeC6MSFUF6D98_Yr1hPtyguwY",
                   "type": "string"
                 }
               ]
@@ -1063,7 +1673,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXJpYi1iYWNoaGEtc3R1ZGVudCIsInVzZXJJZCI6MTksInJvbGVzIjpbIlJPTEVfU1RVREVOVCJdLCJwZXJtaXNzaW9ucyI6WyJSRUFEX1VTRVIiLCJVUERBVEVfUFJPRklMRSJdLCJpYXQiOjE3NzcyMTY3NDgsImV4cCI6MTc3NzIxNzY0OH0.2m9STGXhezloz7pf95tFFC6795S2gjdj3KWrz606xas",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXJpYi1zdHVkZW50IiwidXNlcklkIjoxMiwicm9sZXMiOlsiUk9MRV9TVFVERU5UIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9QUk9GSUxFIl0sImlhdCI6MTc3OTk5MjI0NywiZXhwIjoxNzc5OTkzMTQ3fQ.FmQL8VmxqhYkHLhqcbmeC6MSFUF6D98_Yr1hPtyguwY",
                   "type": "string"
                 }
               ]
@@ -1103,7 +1713,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2gtc3R1ZGVudCIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9TVFVERU5UIl0sInBlcm1pc3Npb25zIjpbIlJFQURfVVNFUiIsIlVQREFURV9QUk9GSUxFIl0sImlhdCI6MTc3NzIyMzcwMSwiZXhwIjoxNzc3MjI0NjAxfQ.R7B4erl7fWYU5tWH69m0AeIkesh0E0eNO7U8xm8oRNQ",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzaHViaGFtLXN0dWRlbnQiLCJ1c2VySWQiOjIxLCJyb2xlcyI6WyJST0xFX1NUVURFTlQiXSwicGVybWlzc2lvbnMiOlsiUkVBRF9VU0VSIiwiVVBEQVRFX1BST0ZJTEUiXSwiaWF0IjoxNzgwNDI0NjM5LCJleHAiOjE3ODA0MjU1Mzl9.vjFfoHRVxVE6q_mzJT2FOwkRW94CaW7sSnawOwddyT0",
                   "type": "string"
                 }
               ]
@@ -1112,7 +1722,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"courseId\": 15\n\n}",
+              "raw": "{\n    \"courseId\": 5\n\n}",
               "options": {
                 "raw": {
                   "language": "json"

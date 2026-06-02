@@ -41,6 +41,9 @@ public class CourseDetails {
 
     private String courseDuration;
 
+    @Column(length = 1000)
+    private String thumbnailUrl;
+
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 

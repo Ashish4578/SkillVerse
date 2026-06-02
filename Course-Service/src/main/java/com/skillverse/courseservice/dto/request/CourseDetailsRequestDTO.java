@@ -1,4 +1,4 @@
-package com.skillverse.courseservice.DTO.request;
+package com.skillverse.courseservice.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -23,6 +23,8 @@ public class CourseDetailsRequestDTO {
     private double coursePrice;
 
     private String courseDuration;
+
+    private String thumbnailUrl;
 
     @NotBlank
     private String courseTime;

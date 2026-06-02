@@ -1,7 +1,7 @@
 package com.skillverse.courseservice.service;
 
-import com.skillverse.courseservice.DTO.response.CourseProgressResponseDTO;
-import com.skillverse.courseservice.DTO.response.ModuleProgressResponseDTO;
+import com.skillverse.courseservice.dto.response.CourseProgressResponseDTO;
+import com.skillverse.courseservice.dto.response.ModuleProgressResponseDTO;
 import com.skillverse.courseservice.model.UserRequestContext;
 
 public interface CourseProgressService {

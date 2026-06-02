@@ -1,7 +1,7 @@
 package com.skillverse.courseservice.service;
 
-import com.skillverse.courseservice.DTO.request.CourseDetailsRequestDTO;
-import com.skillverse.courseservice.DTO.response.CourseDetailsResponseDTO;
+import com.skillverse.courseservice.dto.request.CourseDetailsRequestDTO;
+import com.skillverse.courseservice.dto.response.CourseDetailsResponseDTO;
 import com.skillverse.courseservice.model.UserRequestContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,8 +9,6 @@ import org.springframework.data.domain.Pageable;
 public interface CourseService {
 
     CourseDetailsResponseDTO getCourseById(Long courseId);
-
-    Double getCourseProgress(Long courseId);
 
     Page<CourseDetailsResponseDTO> getAllCourses(Pageable pageable);
 

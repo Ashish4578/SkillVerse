@@ -10,7 +10,7 @@ spring:
     config:
       server:
         git:
-          uri: 
+          uri: https://github.com/Ashish4578/SkillVerse.git
         clone-on-start: true
         search-paths: ConfigProfiles
 # Cloud discovery Client configuration & Spring Security OAuth2 Resource Server Configuration

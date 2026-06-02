@@ -1,7 +1,7 @@
 package com.skillverse.courseservice.service.impl;
 
-import com.skillverse.courseservice.DTO.request.CourseModuleRequestDTO;
-import com.skillverse.courseservice.DTO.response.CourseModuleResponseDTO;
+import com.skillverse.courseservice.dto.request.CourseModuleRequestDTO;
+import com.skillverse.courseservice.dto.response.CourseModuleResponseDTO;
 import com.skillverse.courseservice.execption.ResourceNotFoundException;
 import com.skillverse.courseservice.execption.UnauthorizedException;
 import com.skillverse.courseservice.mapper.CourseModuleMapper;

@@ -1,6 +1,6 @@
 package com.skillverse.courseservice.controller;
 
-import com.skillverse.courseservice.DTO.response.FileUploadResponseDTO;
+import com.skillverse.courseservice.dto.response.FileUploadResponseDTO;
 import com.skillverse.courseservice.service.MinioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -18,16 +18,8 @@ public class FileUploadController {
 
     private final MinioService minioService;
 
-    @PostMapping(
-            value = "/upload",
-            consumes =
-                    MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<FileUploadResponseDTO>
-    uploadFile(
-            @RequestParam("file")
-            MultipartFile file) {
-
-        return ResponseEntity.ok(
-                minioService.uploadFile(file));
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<FileUploadResponseDTO> uploadFile( @RequestParam("file") MultipartFile file) {
+        return ResponseEntity.ok(minioService.uploadFile(file));
     }
 }

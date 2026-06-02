@@ -1,4 +1,4 @@
-package com.skillverse.courseservice.DTO.response;
+package com.skillverse.courseservice.dto.response;
 
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +18,8 @@ public class CourseDetailsResponseDTO {
     private double coursePrice;
 
     private String courseDuration;
+
+    private String thumbnailUrl;
 
     private String courseTime;
 }

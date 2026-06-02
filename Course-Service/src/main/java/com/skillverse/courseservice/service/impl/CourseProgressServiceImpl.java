@@ -1,7 +1,7 @@
 package com.skillverse.courseservice.service.impl;
 
-import com.skillverse.courseservice.DTO.response.CourseProgressResponseDTO;
-import com.skillverse.courseservice.DTO.response.ModuleProgressResponseDTO;
+import com.skillverse.courseservice.dto.response.CourseProgressResponseDTO;
+import com.skillverse.courseservice.dto.response.ModuleProgressResponseDTO;
 import com.skillverse.courseservice.execption.ResourceNotFoundException;
 import com.skillverse.courseservice.model.CourseProgress;
 import com.skillverse.courseservice.model.Lesson;

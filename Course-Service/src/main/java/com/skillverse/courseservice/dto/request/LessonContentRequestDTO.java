@@ -1,4 +1,4 @@
-package com.skillverse.courseservice.DTO.request;
+package com.skillverse.courseservice.dto.request;
 
 import com.skillverse.courseservice.model.ContentType;
 import jakarta.validation.constraints.NotNull;

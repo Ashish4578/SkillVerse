@@ -1,8 +1,11 @@
 package com.skillverse.courseservice.controller;
 
+import com.skillverse.courseservice.dto.response.CourseProgressResponseDTO;
+import com.skillverse.courseservice.dto.response.ModuleProgressResponseDTO;
 import com.skillverse.courseservice.execption.UnauthorizedException;
 import com.skillverse.courseservice.model.HeaderConstants;
 import com.skillverse.courseservice.model.UserRequestContext;
+import com.skillverse.courseservice.service.CourseProgressService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,45 +23,21 @@ public class CourseProgressController {
 
     private final CourseProgressService courseProgressService;
 
-    private static final Set<String> ALLOWED_INTERNAL =
-            Set.of("gateway");
+    private static final Set<String> ALLOWED_INTERNAL = Set.of("gateway");
 
-    private UserRequestContext buildContext(
-            Long userId,
-            String role,
-            String internal) {
+    private UserRequestContext buildContext(Long userId, String role, String internal) {
 
         if (!ALLOWED_INTERNAL.contains(internal)) {
-            throw new UnauthorizedException(
-                    "Unauthorized access");
+            throw new UnauthorizedException("Unauthorized access");
         }
-
-        return new UserRequestContext(
-                userId,
-                role);
+        return new UserRequestContext(userId, role);
     }
 
     @PostMapping("/lessons/{lessonId}/complete")
-    public ResponseEntity<Void> completeLesson(
+    public ResponseEntity<Void> completeLesson( @PathVariable Long lessonId, @RequestHeader(HeaderConstants.USER_ID) Long userId, @RequestHeader(HeaderConstants.USER_ROLE) String role, @RequestHeader(HeaderConstants.INTERNAL_CALL) String internal) {
 
-            @PathVariable Long lessonId,
-
-            @RequestHeader(HeaderConstants.USER_ID)
-            Long userId,
-
-            @RequestHeader(HeaderConstants.USER_ROLE)
-            String role,
-
-            @RequestHeader(HeaderConstants.INTERNAL_CALL)
-            String internal) {
-
-        UserRequestContext context =
-                buildContext(userId, role, internal);
-
-        courseProgressService.completeLesson(
-                context,
-                lessonId);
-
+        UserRequestContext context = buildContext(userId, role, internal);
+        courseProgressService.completeLesson(context, lessonId);
         return ResponseEntity.ok().build();
     }
 

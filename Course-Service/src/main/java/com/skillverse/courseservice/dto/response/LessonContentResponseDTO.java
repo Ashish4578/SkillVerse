@@ -1,4 +1,4 @@
-package com.skillverse.courseservice.DTO.response;
+package com.skillverse.courseservice.dto.response;
 
 import com.skillverse.courseservice.model.ContentType;
 import lombok.Builder;

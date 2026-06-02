@@ -7,11 +7,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CourseProgressRepository extends JpaRepository<CourseProgress, Long> {
+public interface CourseProgressRepository
+        extends JpaRepository<CourseProgress, Long> {
 
-    boolean existsByUserIdAndLessonId( Long userId, Long lessonId);
+    boolean existsByUserIdAndLessonId(
+            Long userId,
+            Long lessonId);
 
-    long countByUserIdAndCourseId( Long userId, Long courseId);
+    long countByUserIdAndCourseId(
+            Long userId,
+            Long courseId);
 
     @Query("""
             SELECT COUNT(cp)
@@ -21,5 +26,7 @@ public interface CourseProgressRepository extends JpaRepository<CourseProgress, 
             WHERE cp.userId = :userId
             AND l.module.moduleId = :moduleId
             """)
-    long countCompletedLessonsByModule( @Param("userId") Long userId, @Param("moduleId") Long moduleId);
+    long countCompletedLessonsByModule(
+            @Param("userId") Long userId,
+            @Param("moduleId") Long moduleId);
 }

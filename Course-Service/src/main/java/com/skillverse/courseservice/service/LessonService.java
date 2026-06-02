@@ -1,7 +1,7 @@
 package com.skillverse.courseservice.service;
 
-import com.skillverse.courseservice.DTO.request.LessonRequestDTO;
-import com.skillverse.courseservice.DTO.response.LessonResponseDTO;
+import com.skillverse.courseservice.dto.request.LessonRequestDTO;
+import com.skillverse.courseservice.dto.response.LessonResponseDTO;
 import com.skillverse.courseservice.model.UserRequestContext;
 
 import java.util.List;
