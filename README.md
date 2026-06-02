@@ -1,192 +1,429 @@
-# SkillVerse 
+# SkillVerse
 
-SkillVerse is a **scalable microservices-based online learning platform** built using **Spring Boot & Spring Cloud**.
-It enables users to register, explore courses, enroll, and rate them — designed with **event-driven architecture and service isolation**.
+SkillVerse is a microservices-based Learning Management System (LMS) built using Spring Boot and Spring Cloud.
 
----
+The platform enables creators to build and manage courses, students to enroll and learn, and administrators to manage the platform through secure role-based access control.
 
-##  Microservices Architecture
-
-| Service Name             | Responsibility                                                    | Tech Stack           |
-| ------------------------ | ----------------------------------------------------------------- | -------------------- |
-| **Auth-Service**         | Handles authentication, JWT generation, and user registration     | Spring Security, JWT |
-| **User-Service**         | Manages user profiles and user data                               | Spring Boot, MySQL   |
-| **Course-Service**       | Manages courses and maintains aggregated rating stats             | Spring Boot, MySQL   |
-| **Enrollment-Service**   | Handles course enrollments and publishes enrollment events        | Spring Boot, MySQL   |
-| **Rating-Service**       | Manages course ratings and reviews, publishes rating events       | Spring Boot, MySQL   |
-| **Notification-Service** | Consumes events and sends notifications (email/in-app)            | Spring Boot, Kafka   |
-| **API-Gateway**          | Central entry point (routing, authentication, header propagation) | Spring Cloud Gateway |
-| **Config-Service**       | Centralized configuration                                         | Spring Cloud Config  |
-| **Eureka-Service**       | Service discovery                                                 | Netflix Eureka       |
+The project follows modern microservices principles including service isolation, centralized configuration, service discovery, event-driven communication, and database-per-service architecture.
 
 ---
 
-##  Tech Stack
+# Architecture
 
-| Layer                   | Technology                             |
-| ----------------------- | -------------------------------------- |
-| **Language**            | Java 17                                |
-| **Framework**           | Spring Boot                            |
-| **Microservices**       | Spring Cloud (Gateway, Eureka, Config) |
-| **Security**            | Spring Security, JWT                   |
-| **Database**            | MySQL                                  |
-| **Messaging**           | Apache Kafka                           |
-| **Inter-service Calls** | OpenFeign                              |
-| **Logging**             | SLF4J + Logback                        |
-| **Monitoring**          | Spring Actuator                        |
+## Microservices
 
----
-
-##  Event-Driven Architecture (Kafka)
-
-SkillVerse uses **Kafka for asynchronous communication** between services.
-
-###  Producers
-
-* Auth-Service → `user-created`
-* Enrollment-Service → `enrollment-events`
-* Rating-Service → `rating-created`
-
-### Consumers
-
-* User-Service → consumes `user-created`
-* Notification-Service → consumes `enrollment-events`
-* Course-Service → consumes `rating-created`
+| Service              | Responsibility                                          |
+| -------------------- | ------------------------------------------------------- |
+| Auth-Service         | Authentication, JWT generation, login and registration  |
+| User-Service         | User profile management                                 |
+| Course-Service       | Course, module, lesson, content and progress management |
+| Enrollment-Service   | Course enrollment management                            |
+| Rating-Service       | Course ratings and reviews                              |
+| Notification-Service | Email notifications                                     |
+| API-Gateway          | Routing, security and request forwarding                |
+| Config-Service       | Centralized configuration                               |
+| Eureka-Service       | Service discovery                                       |
 
 ---
 
-##  System Flow
+# Technology Stack
+
+| Category                    | Technology           |
+| --------------------------- | -------------------- |
+| Language                    | Java 17              |
+| Framework                   | Spring Boot 3        |
+| Microservices               | Spring Cloud         |
+| Security                    | Spring Security, JWT |
+| Database                    | MySQL                |
+| Messaging                   | Apache Kafka         |
+| Service Discovery           | Netflix Eureka       |
+| API Gateway                 | Spring Cloud Gateway |
+| Configuration               | Spring Cloud Config  |
+| File Storage                | MinIO                |
+| Inter-Service Communication | OpenFeign            |
+| Monitoring                  | Spring Boot Actuator |
+| Build Tool                  | Maven                |
+
+---
+
+# User Roles
+
+## Student
+
+* Register and login
+* Browse available courses
+* Enroll in courses
+* Access lessons and content
+* Track learning progress
+* Rate courses
+
+## Creator
+
+* Create courses
+* Upload course thumbnails
+* Create modules
+* Create lessons
+* Upload lesson content
+* Manage owned courses
+
+## Admin
+
+* Platform administration
+
+## Super Admin
+
+* Administrative user management
+* Full platform access
+
+---
+
+# Course Structure
 
 ```text
-User registers → Auth-Service → Kafka → User-Service DB sync
-
-User enrolls → Enrollment-Service → Kafka → Notification-Service
-
-User rates course → Rating-Service → Kafka → Course-Service updates rating
+Course
+ ├── Module
+ │
+ ├── Lesson
+ │
+ ├── Content
+ │    ├── VIDEO
+ │    ├── IMAGE
+ │    ├── PDF
+ │    ├── TEXT
+ │    └── QUIZ
+ │
+ └── Progress Tracking
 ```
 
 ---
 
-##  Core Features
+# Core Features
 
-###  Authentication & Users
+## Authentication
 
 * JWT-based authentication
-* Role-based authorization (STUDENT / CREATOR / ADMIN)
-* User profile management
+* Secure login and registration
+* Role-based authorization
+* Stateless authentication
 
-###  Courses
+## User Management
 
-* Create, update, delete courses (CREATOR role)
-* Browse and search courses
-* Maintains **average rating & total ratings (event-driven)**
+* User registration
+* Profile management
+* Creator and student support
+* Admin and super admin support
 
-### Enrollments
+## Course Management
 
-* Enroll in courses
-* View enrolled courses
-* Prevent duplicate enrollments
+* Create courses
+* Update courses
+* Delete courses
+* Search courses
+* Pagination support
+* Ownership validation
 
-###  Ratings & Reviews
+## Course Thumbnail Support
 
-* Rate courses (1–5)
-* Add reviews
-* Prevent duplicate ratings
-* Event-driven aggregation in Course-Service
+* Upload images using MinIO
+* Store thumbnail URL with course
+* Unique file naming strategy
 
-### Notifications
+## Module Management
 
-* Triggered on enrollment events
-* Email/in-app notification support (extensible)
+* Create modules within courses
+* Update modules
+* Delete modules
+* Ordered sequencing support
+
+## Lesson Management
+
+* Create lessons within modules
+* Update lessons
+* Delete lessons
+* Ordered sequencing support
+
+## Lesson Content Management
+
+Supported content types:
+
+* VIDEO
+* IMAGE
+* PDF
+* TEXT
+* QUIZ
+
+Features:
+
+* Create lesson content
+* Update lesson content
+* Delete lesson content
+* Fetch lesson content
+
+## Enrollment Management
+
+* Student enrollment
+* Duplicate enrollment prevention
+* Enrollment tracking
+
+## Rating System
+
+* Course ratings
+* Rating aggregation
+* Average rating calculation
+* Total rating count maintenance
+
+## Progress Tracking
+
+Track completed lessons for enrolled students.
+
+Features:
+
+* Mark lesson as completed
+* Course-level progress tracking
+* Module-level progress tracking
+
+Progress calculation includes:
+
+* Total lessons
+* Completed lessons
+* Completion percentage
+
+## File Storage
+
+MinIO integration provides:
+
+* Course thumbnail upload
+* Lesson resource upload
+* Object storage support
+* Scalable file management
 
 ---
 
-## Architecture Principles
+# Event-Driven Architecture
 
-* **Database per service**
-* **Loose coupling via Kafka events**
-* **API Gateway for centralized security**
-* **Feign for synchronous communication**
-* **Eventual consistency across services**
+Kafka is used for asynchronous communication between services.
+
+## Producers
+
+* Auth-Service → user-created
+* Enrollment-Service → enrollment-events
+* Rating-Service → rating-created
+
+## Consumers
+
+* User-Service → user-created
+* Notification-Service → user-created
+* Notification-Service → enrollment-events
+* Course-Service → rating-created
 
 ---
 
-## Development Setup
+# Notification Features
 
-### Prerequisites
+Notification-Service handles asynchronous email delivery.
+
+## Welcome Email
+
+Triggered when:
+
+```text
+User Registration
+        ↓
+Auth-Service
+        ↓
+Kafka (user-created)
+        ↓
+Notification-Service
+        ↓
+Welcome Email
+```
+
+## Enrollment Email
+
+Triggered when:
+
+```text
+Course Enrollment
+        ↓
+Enrollment-Service
+        ↓
+Kafka (enrollment-events)
+        ↓
+Notification-Service
+        ↓
+Enrollment Confirmation Email
+```
+
+---
+
+# System Flow
+
+## User Registration
+
+```text
+User
+  ↓
+Auth-Service
+  ↓
+Kafka (user-created)
+  ├── User-Service
+  └── Notification-Service
+          ↓
+      Welcome Email
+```
+
+## Course Enrollment
+
+```text
+Student
+  ↓
+Enrollment-Service
+  ↓
+Kafka (enrollment-events)
+  ↓
+Notification-Service
+  ↓
+Enrollment Confirmation Email
+```
+
+## Course Rating
+
+```text
+Student
+  ↓
+Rating-Service
+  ↓
+Kafka (rating-created)
+  ↓
+Course-Service
+  ↓
+Average Rating Updated
+```
+
+---
+
+# Architecture Principles
+
+* Database per service
+* Service isolation
+* Loose coupling through Kafka
+* Eventual consistency
+* API Gateway pattern
+* Service discovery
+* Centralized configuration
+* Stateless authentication
+* Event-driven communication
+
+---
+
+# Development Setup
+
+## Prerequisites
 
 * Java 17+
 * Maven 3.8+
 * MySQL
-* Docker (for Kafka)
-* Git
+* Docker
+* Apache Kafka
+* MinIO
 
 ---
 
-### Run Order
+# Startup Order
 
 1. Eureka-Service
 2. Config-Service
-3. Kafka (Docker)
-4. Auth-Service
-5. User-Service
-6. Course-Service
-7. Enrollment-Service
-8. Rating-Service
-9. Notification-Service
-10. API-Gateway
+3. Kafka
+4. MinIO
+5. Auth-Service
+6. User-Service
+7. Course-Service
+8. Enrollment-Service
+9. Rating-Service
+10. Notification-Service
+11. API-Gateway
 
 ---
 
-### Run Command
+# Sample APIs
 
-```bash
-mvn spring-boot:run
-```
+## Authentication
 
----
-
-##  Sample APIs
-
-### Login
-
-```bash
+```http
 POST /skillverse/auth/login
 ```
 
-###  Create Course
+## Create Course
 
-```bash
+```http
 POST /skillverse/courses
 ```
 
-### Rate Course
+## Upload File
 
-```bash
+```http
+POST /skillverse/courses/files/upload
+```
+
+## Create Module
+
+```http
+POST /skillverse/courses/{courseId}/modules
+```
+
+## Create Lesson
+
+```http
+POST /skillverse/courses/modules/{moduleId}/lessons
+```
+
+## Add Lesson Content
+
+```http
+POST /skillverse/courses/lessons/{lessonId}/contents
+```
+
+## Mark Lesson Complete
+
+```http
+POST /skillverse/courses/progress/lessons/{lessonId}/complete
+```
+
+## Get Course Progress
+
+```http
+GET /skillverse/courses/progress/course/{courseId}
+```
+
+## Get Module Progress
+
+```http
+GET /skillverse/courses/progress/course/{courseId}/module/{moduleId}
+```
+
+## Rate Course
+
+```http
 POST /skillverse/ratings
 ```
 
 ---
 
-##  Future Enhancements
+# Future Enhancements
 
-* Kafka Retry + DLQ implementation
-* Distributed tracing (OpenTelemetry)
-* Caching with Redis
+* Course certificates
+* Quiz
+* Kafka Retry and DLQ
 * API rate limiting
-* Frontend (Angular/React)
-* Event versioning
+* Angular frontend
+
 
 ---
 
-## License
+# Author
 
-Currently under development. Not licensed for public use.
+Ashish Gadekar
 
----
+SkillVerse – Microservices Learning Management System
 
-## Author
-
-**Ashish Gadekar**
-SkillVerse — Microservices Learning Platform
-Version: `v1.0.0`
+Version: v2.0.0
