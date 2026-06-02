@@ -1,6 +1,7 @@
 package com.skillverse.notificationservice.controller;
 
 import com.skillverse.notificationservice.dto.response.NotificationResponseDTO;
+import com.skillverse.notificationservice.exception.UnauthorizedException;
 import com.skillverse.notificationservice.model.HeaderConstants;
 import com.skillverse.notificationservice.service.NotificationService;
 import lombok.RequiredArgsConstructor;
